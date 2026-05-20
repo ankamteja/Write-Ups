@@ -16,4 +16,6 @@
     * [TMUX](readme/cheat-sheets/tmux.md)
     * [VIM](readme/cheat-sheets/vim.md)
     * [Nmap](readme/cheat-sheets/nmap.md)
+    * [SMB](readme/cheat-sheets/smb.md)
+    * [SNMP](readme/cheat-sheets/snmp.md)
   * [News](readme/news.md)

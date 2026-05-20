@@ -12,6 +12,8 @@ Use this page for first-pass concepts, common tools, and early service checks.
 | [TMUX](../cheat-sheets/tmux.md)           | Session, window, and pane shortcuts            |
 | [VIM](../cheat-sheets/vim.md)             | Fast editing and navigation                    |
 | [Nmap](../cheat-sheets/nmap.md)           | Common scans, NSE scripts, and banner grabbing |
+| [SMB](../cheat-sheets/smb.md)             | Share enumeration and access commands          |
+| [SNMP](../cheat-sheets/snmp.md)           | `snmpwalk` and community string checks         |
 
 ## Common Terms
 
@@ -206,7 +208,7 @@ This is an Aggressive scan.
 
 The text is demonstrating the progression of enumeration. You start by finding an open port (`445`), then you use specialized tools (NSE scripts or `-A` flags) to pull the banners and exact software versions. Once you have those precise versions (e.g., _Windows 7 SP1_ or _Samba 4.6.2_), you can cross-reference them against public vulnerability databases to find specific, actionable exploits like EternalBlue.<br>
 
-### Shares : &#x20;
+### Shares :
 
 * SMB (Server Message Block): Protocol used to share folders and files remotely.
 * Security Risk: Shares frequently expose sensitive data (like hardcoded passwords).
@@ -242,7 +244,7 @@ after this, the tool will ask password and then once inside the `smb: \>` prompt
 
 we can now use the get command to get the passwords.txt file.
 
-### SNMP : &#x20;
+### SNMP :
 
 * SNMP (Ports 161/162 TCP/UDP): Used for device management.
 * Versions 1 & 2c: Insecure; rely on unencrypted plaintext community strings instead of passwords.
