@@ -2,6 +2,8 @@
 
 This page outlines the standard penetration testing workflow.
 
+<figure><img src="../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
+
 ### Core phases
 
 * **Pre-engagement** — define scope, rules, and contracts.
