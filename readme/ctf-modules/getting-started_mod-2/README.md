@@ -4,14 +4,26 @@ Use this page for first-pass concepts, common tools, and early service checks.
 
 ### Cheat sheets
 
-| Cheat sheet                                  | Focus                                          |
-| -------------------------------------------- | ---------------------------------------------- |
-| [Common ports](../../cheat-sheets/page-3.md) | Default ports and quick service lookup         |
-| [TMUX](../../cheat-sheets/tmux.md)           | Session, window, and pane shortcuts            |
-| [VIM](../../cheat-sheets/vim.md)             | Fast editing and navigation                    |
-| [Nmap](../../cheat-sheets/nmap.md)           | Common scans, NSE scripts, and banner grabbing |
-| [SMB](../../cheat-sheets/smb.md)             | Share enumeration and access commands          |
-| [SNMP](../../cheat-sheets/snmp.md)           | `snmpwalk` and community string checks         |
+| Cheat sheet                                                        | Focus                                          |
+| ------------------------------------------------------------------ | ---------------------------------------------- |
+| [Common ports](../../cheat-sheets/page-3.md)                       | Default ports and quick service lookup         |
+| [TMUX](../../cheat-sheets/tmux.md)                                 | Session, window, and pane shortcuts            |
+| [VIM](../../cheat-sheets/vim.md)                                   | Fast editing and navigation                    |
+| [Nmap](../../cheat-sheets/nmap.md)                                 | Common scans, NSE scripts, and banner grabbing |
+| [SMB](../../cheat-sheets/smb.md)                                   | Share enumeration and access commands          |
+| [SNMP](../../cheat-sheets/snmp.md)                                 | `snmpwalk` and community string checks         |
+| [Gobuster](../../cheat-sheets/gobuster.md)                         | Directory and DNS brute-force commands         |
+| [cURL](../../cheat-sheets/curl.md)                                 | Header checks and redirect handling            |
+| [WhatWeb](../../cheat-sheets/whatweb.md)                           | Technology fingerprinting                      |
+| [SSL/TLS certificates](../../cheat-sheets/ssl-tls-certificates.md) | Certificate details and names                  |
+| [robots.txt](../../cheat-sheets/robots.txt.md)                     | Hidden paths and blocked content               |
+| [Page source code](../../cheat-sheets/page-source-code.md)         | Comments, keys, fields, and client-side clues  |
+| [HTTP status codes](../../cheat-sheets/http-status-codes.md)       | Quick result triage during web enumeration     |
+
+### Workflows
+
+* [Workflow-Service Enumeration](workflow-service-enumeration.md)
+* [Workflow-Web Enumeration](workflow-web-enumeration/)
 
 ## Foundations
 
@@ -274,6 +286,182 @@ onesixtyone -c dict.txt <TARGET_IP>
 
 <figure><img src="../../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
 
-
-
 ## Web Enumeration
+
+Use this section for first-pass web checks and fast follow-up.
+
+Start with the [Workflow-Web Enumeration](workflow-web-enumeration/) flow.
+
+### Gobuster
+
+GoBuster is a versatile tool that allows for performing DNS, vhost, and directory brute-forcing.
+
+The tool has additional functionality, such as enumeration of public AWS S3 buckets.
+
+#### Directory enumeration
+
+```bash
+gobuster dir -u http://10.10.10.121/ -w /usr/share/seclists/Discovery/Web-Content/common.txt
+```
+
+What it does:
+
+* Takes every word from the wordlist.
+* Tries `http://IP/word` for each one.
+* Reports which ones exist with `200`, `301`, or `403`.
+
+Example finding:
+
+* Found `/wordpress` with `301`.
+* WordPress is installed.
+* WordPress often has a large attack surface.
+
+#### DNS subdomain enumeration
+
+```bash
+gobuster dns -d inlanefreight.com -w /usr/share/SecLists/Discovery/DNS/namelist.txt
+```
+
+What it does:
+
+* Tries `blog.domain.com`, `admin.domain.com`, and similar names.
+* Reports which subdomains actually exist.
+
+Why it matters:
+
+* admin panels on subdomains
+* dev or staging environments
+* hidden applications
+
+Related cheat sheet:
+
+* [Gobuster](../../cheat-sheets/gobuster.md)
+
+### cURL - Web Server Headers
+
+```bash
+curl -IL https://www.inlanefreight.com
+```
+
+What it reveals:
+
+* `Server: Apache/2.4.29 (Ubuntu)` and other version details
+* technology stack hints
+* authentication methods
+* security misconfigurations
+
+Flag reminder:
+
+* `-I` requests headers only.
+* `-L` follows redirects.
+
+Related cheat sheet:
+
+* [cURL](../../cheat-sheets/curl.md)
+
+### WhatWeb - Technology Fingerprinting
+
+```bash
+whatweb 10.10.10.121
+whatweb --no-errors 10.10.10.0/24
+```
+
+What it reveals:
+
+* web server such as Apache, Nginx, or IIS
+* version numbers
+* frameworks such as WordPress, PHP, or jQuery
+* email addresses
+* country data
+
+Subnet use:
+
+* Scan a whole `/24`.
+* Find all web servers on the network at once.
+
+Related cheat sheet:
+
+* [WhatWeb](../../cheat-sheets/whatweb.md)
+
+### SSL/TLS Certificates
+
+Browse to `https://IP`.
+
+Then click the padlock and view the certificate.
+
+What it reveals:
+
+* company name
+* email addresses
+* domain names
+* phishing targets if that is in scope
+
+Related cheat sheet:
+
+* [SSL/TLS certificates](../../cheat-sheets/ssl-tls-certificates.md)
+
+### robots.txt
+
+Browse to `http://IP/robots.txt`.
+
+What it reveals:
+
+* paths search engines cannot index
+* hidden admin pages
+* private directories
+* sensitive files
+
+Example find:
+
+```
+Disallow: /private
+```
+
+Then browse to `/private`.
+
+That may lead to an admin login page.
+
+Related cheat sheet:
+
+* [robots.txt](../../cheat-sheets/robots.txt.md)
+
+### Page Source Code
+
+Press `Ctrl+U` in the browser.
+
+What to look for:
+
+* developer comments with credentials
+* hidden form fields
+* hardcoded API keys
+* internal IP addresses
+* file paths that reveal server structure
+
+Related cheat sheet:
+
+* [Page source code](../../cheat-sheets/page-source-code.md)
+
+### HTTP Status codes
+
+* `200` — exists and is accessible
+* `301` — redirect and still exists
+* `302` — temporary redirect
+* `401` — requires authentication
+* `403` — exists but is forbidden
+* `404` — does not exist
+* `500` — server error
+
+Related cheat sheet:
+
+* [HTTP status codes](../../cheat-sheets/http-status-codes.md)
+
+{% hint style="success" %}
+### Key insight
+
+WordPress found at `/IP/wordpress`
+
+* WordPress is in setup mode.
+* You may be able to configure it yourself.
+* That can lead to remote code execution.
+* One Gobuster result can lead to full server compromise.
+{% endhint %}
