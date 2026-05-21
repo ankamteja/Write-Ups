@@ -24,8 +24,8 @@ Use this page for first-pass concepts, common tools, and early service checks.
 
 ### Workflows
 
-* [Workflow-Service Enumeration](workflow-service-enumeration.md)
-* [Workflow-Web Enumeration](workflow-web-enumeration/)
+* [Workflow-Service Enumeration](wf-service-enumeration.md)
+* [Workflow-Web Enumeration](wf-web-enumeration/)
 
 ## Foundations
 
@@ -292,7 +292,7 @@ onesixtyone -c dict.txt <TARGET_IP>
 
 Use this section for first-pass web checks and fast follow-up.
 
-Start with the [Workflow-Web Enumeration](workflow-web-enumeration/) flow.
+Start with the [Workflow-Web Enumeration](wf-web-enumeration/) flow.
 
 ### Gobuster
 
