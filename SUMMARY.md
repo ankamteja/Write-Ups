@@ -21,6 +21,7 @@
     * [Easy](readme/htb-machines/easy/README.md)
       * [Nibbles](readme/htb-machines/easy/page-1.md)
       * [GettingStarted](readme/htb-machines/easy/gettingstarted.md)
+      * [Cap](readme/htb-machines/easy/cap.md)
   * [CTF writeups](readme/ctf-write-ups/README.md)
     * [Challenge writeup template](readme/ctf-write-ups/page-2.md)
   * [Cheat Sheets](readme/cheat-sheets/README.md)
