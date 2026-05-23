@@ -1,15 +1,46 @@
 # Network Enumeration with Nmap
 
-## Syntax <a href="#syntax" id="syntax"></a>
-
-Syntax of nmap is simple and looks like this :&#x20;
+Use this page to discover live hosts and understand how Nmap performs host discovery on internal networks.
 
 ```
+┌────────────────────────┐
+│ THE PUBLIC INTERNET    │
+│ (External Pentest)     │
+└───────────┬────────────┘
+            │
+       [ Public IP ]
+            │
+┌───────────┴────────────┐
+│ Router and firewall    │
+│ NAT blocks inbound     │
+└───────────┬────────────┘
+            │
+      [ Private subnet ]
+            │
+┌──────────────────────────────────────────────────────────────┐
+│ Internal web host │ Domain controller │ Attacker via VPN    │
+│ 10.129.2.18       │ 10.129.2.10       │ 10.10.14.5          │
+└──────────────────────────────────────────────────────────────┘
+```
+
+<figure><img src="../../../.gitbook/assets/image (61).png" alt=""><figcaption></figcaption></figure>
+
+### Syntax
+
+Nmap uses this basic format:
+
+```bash
 nmap <scan types> <options> <target>
 ```
 
-```
-impale7@htb[/htb]$ nmap --help
+`-sS` is one of the most common scan types.
+
+It sends a SYN packet and stops before the full TCP handshake completes.
+
+That makes it fast and relatively quiet.
+
+```bash
+nmap --help
 
 <SNIP>
 SCAN TECHNIQUES:
@@ -24,16 +55,16 @@ SCAN TECHNIQUES:
 <SNIP>
 ```
 
-the TCP-SYN scan (`-sS`) is one of the default settings unless we have defined otherwise and is also one of the most popular scan methods. This scan method makes it possible to scan several thousand ports per second. The TCP-SYN scan sends one packet with the SYN flag and, therefore, never completes the three-way handshake, which results in not establishing a full TCP connection to the scanned port.
+With a SYN scan:
 
-* If our target sends a `SYN-ACK` flagged packet back to us, Nmap detects that the port is `open`.
-* If the target responds with an `RST` flagged packet, it is an indicator that the port is `closed`.
-* If Nmap does not receive a packet back, it will display it as `filtered`. Depending on the firewall configuration, certain packets may be dropped or ignored by the firewall.
+* `SYN-ACK` means the port is `open`.
+* `RST` means the port is `closed`.
+* No response often means the port is `filtered`.
 
 Example:
 
-```
-impale7@htb[/htb]$ sudo nmap -sS localhost
+```bash
+sudo nmap -sS localhost
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-11 22:50 UTC
 Nmap scan report for localhost (127.0.0.1)
@@ -48,20 +79,16 @@ PORT     STATE SERVICE
 Nmap done: 1 IP address (1 host up) scanned in 0.18 seconds
 ```
 
+### Host discovery
 
+Start by finding which hosts are online.
 
-## Host Enumeration
+On internal tests, this is usually the first step.
 
-### Host Discovery
+#### Scan a network range
 
-In case of an internal pen test, we need to check what are all the systems that are online so that we can work with them. The most effective host discovery method is to use **ICMP echo requests**, which we will look into.
-
-
-
-**Scan Network Range**
-
-```
-impale7@htb[/htb]$ sudo nmap 10.129.2.0/24 -sn -oA tnet | grep for | cut -d" " -f5
+```bash
+sudo nmap 10.129.2.0/24 -sn -oA tnet | grep for | cut -d" " -f5
 
 10.129.2.4
 10.129.2.10
@@ -70,29 +97,30 @@ impale7@htb[/htb]$ sudo nmap 10.129.2.0/24 -sn -oA tnet | grep for | cut -d" " -
 10.129.2.19
 10.129.2.20
 10.129.2.28
-
 ```
 
 <figure><img src="../../../.gitbook/assets/image (55).png" alt=""><figcaption></figcaption></figure>
 
-* `10.129.2.0/24`: This targets the entire local subnet—all 256 possible IP addresses (from `.0` to `.255`).
-* `-sn` (No Port Scan): This is critical. It tells Nmap: _"Just knock on the door to see if someone answers. Do not try to scan their ports yet."_ This works primarily by sending an ICMP Echo Request (a ping). If the machine replies, it's alive.
-* `-oA tnet` (Output All Formats): As the text highlights, always log your scans. This flag creates three distinct files in your directory: `tnet.nmap` (human-readable), `tnet.gnmap` (grepable), and `tnet.xml`.
+What this does:
 
-This method only works if host firewalls allow ICMP traffic.
+* `10.129.2.0/24` targets the whole subnet.
+* `-sn` skips the port scan and only checks whether hosts respond.
+* `-oA tnet` saves output as `tnet.nmap`, `tnet.gnmap`, and `tnet.xml`.
 
-When standard host discovery fails, you have to drop the `-sn` ping sweep and manually probe specific ports (like port 80 for web or port 445 for SMB) to see if the TCP handshake forces the machine to reveal itself.
+{% hint style="info" %}
+This works best when hosts reply to ICMP or other discovery probes.
+{% endhint %}
 
+If standard discovery fails, try direct TCP probes against likely ports such as `80` or `445`.
 
+#### Scan an IP list
 
-#### Scan IP List <a href="#scan-ip-list" id="scan-ip-list"></a>
+Use a host list when the scope is predefined.
 
-During an internal pen test, we can be provided with a set of IP's to work with...
+Example list:
 
-Pre defined list of IP's:
-
-```
-impale7@htb[/htb]$ cat hosts.lst
+```bash
+cat hosts.lst
 
 10.129.2.4
 10.129.2.10
@@ -103,10 +131,10 @@ impale7@htb[/htb]$ cat hosts.lst
 10.129.2.28
 ```
 
-Command to use:
+Scan the list:
 
-```
-impale7@htb[/htb]$ sudo nmap -sn -oA tnet -iL hosts.lst | grep for | cut -d" " -f5
+```bash
+sudo nmap -sn -oA tnet -iL hosts.lst | grep for | cut -d" " -f5
 
 10.129.2.18
 10.129.2.19
@@ -115,40 +143,36 @@ impale7@htb[/htb]$ sudo nmap -sn -oA tnet -iL hosts.lst | grep for | cut -d" " -
 
 <figure><img src="../../../.gitbook/assets/image (56).png" alt=""><figcaption></figcaption></figure>
 
-Remember, this may mean that the other hosts ignore the default **ICMP echo requests** because of their firewall configurations. Since `Nmap` does not receive a response, it marks those hosts as inactive.<br>
+If some hosts do not appear, they may be blocking or ignoring the default discovery traffic.
 
-### Scan Multiple IPs <a href="#scan-multiple-ips" id="scan-multiple-ips"></a>
+#### Scan multiple IPs directly
 
-It can also happen that we have to scan a small part of the network and then we can do this as an alternative to the prev one:
+Use this when you only need a few targets.
 
-```
-impale7@htb[/htb]$ sudo nmap -sn -oA tnet 10.129.2.18 10.129.2.19 10.129.2.20| grep for | cut -d" " -f5
-
-10.129.2.18
-10.129.2.19
-10.129.2.20
-```
-
-
-
-If these IP addresses are next to each other, we can also define the range in the respective octet.
-
-```
-impale7@htb[/htb]$ sudo nmap -sn -oA tnet 10.129.2.18-20| grep for | cut -d" " -f5
+```bash
+sudo nmap -sn -oA tnet 10.129.2.18 10.129.2.19 10.129.2.20 | grep for | cut -d" " -f5
 
 10.129.2.18
 10.129.2.19
 10.129.2.20
 ```
 
+If the addresses are consecutive, use a range:
 
+```bash
+sudo nmap -sn -oA tnet 10.129.2.18-20 | grep for | cut -d" " -f5
 
-### Scan Single IP <a href="#scan-single-ip" id="scan-single-ip"></a>
-
-Before we scan a single host for open ports and its services, we first have to determine if it is alive or not. For this, we can use the same method as before.
-
+10.129.2.18
+10.129.2.19
+10.129.2.20
 ```
-impale7@htb[/htb]$ sudo nmap 10.129.2.18 -sn -oA host 
+
+#### Scan a single IP
+
+Before you enumerate services, confirm the host is alive.
+
+```bash
+sudo nmap 10.129.2.18 -sn -oA host
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-14 23:59 CEST
 Nmap scan report for 10.129.2.18
@@ -156,4 +180,132 @@ Host is up (0.087s latency).
 MAC Address: DE:AD:00:00:BE:EF
 Nmap done: 1 IP address (1 host up) scanned in 0.11 seconds
 ```
+
+### Why Nmap used ARP instead of ICMP
+
+On a local subnet, Nmap often uses ARP discovery first.
+
+That happens even if you expect an ICMP echo request.
+
+Use `--packet-trace` to see it clearly:
+
+```bash
+sudo nmap 10.129.2.18 -sn -oA host -PE --packet-trace
+
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 00:08 CEST
+SENT (0.0074s) ARP who-has 10.129.2.18 tell 10.10.14.2
+RCVD (0.0309s) ARP reply 10.129.2.18 is-at DE:AD:00:00:BE:EF
+Nmap scan report for 10.129.2.18
+Host is up (0.023s latency).
+MAC Address: DE:AD:00:00:BE:EF
+Nmap done: 1 IP address (1 host up) scanned in 0.05 seconds
+```
+
+<figure><img src="../../../.gitbook/assets/image (59).png" alt=""><figcaption></figcaption></figure>
+
+#### Why this happens
+
+Hosts on the same local subnet must use ARP to resolve MAC addresses.
+
+If the target answers ARP, Nmap already knows the host is alive.
+
+There is no need to send a separate ICMP probe.
+
+#### Why it matters
+
+For internal testing:
+
+* ARP-based discovery is very reliable on the local segment.
+* Local firewalls do not usually stop ARP in the same way they stop ICMP.
+* Results can look different once traffic crosses a router.
+
+For remote networks:
+
+* ARP does not cross routers.
+* Nmap must fall back to ICMP or TCP-based discovery.
+* Host discovery becomes easier to filter or hide.
+
+#### Flag breakdown
+
+* `--packet-trace` prints packets that Nmap sends and receives.
+* `-PE` tells Nmap to use ICMP echo requests for discovery.
+
+{% hint style="info" %}
+On a local subnet, Nmap may still prefer ARP even when `-PE` is set.
+{% endhint %}
+
+<figure><img src="../../../.gitbook/assets/image (60).png" alt=""><figcaption></figcaption></figure>
+
+### Use `--reason` to verify discovery
+
+Use `--reason` when you want Nmap to explain why it marked a host as up.
+
+```bash
+sudo nmap 10.129.2.18 -sn -oA host -PE --reason
+
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 00:10 CEST
+SENT (0.0074s) ARP who-has 10.129.2.18 tell 10.10.14.2
+RCVD (0.0309s) ARP reply 10.129.2.18 is-at DE:AD:00:00:BE:EF
+Nmap scan report for 10.129.2.18
+Host is up, received arp-response (0.028s latency).
+MAC Address: DE:AD:00:00:BE:EF
+Nmap done: 1 IP address (1 host up) scanned in 0.03 seconds
+```
+
+The key line is:
+
+* `Host is up, received arp-response`
+
+That confirms Nmap treated the ARP reply as proof the host is alive.
+
+<figure><img src="../../../.gitbook/assets/image (62).png" alt=""><figcaption></figcaption></figure>
+
+### Force ICMP instead of ARP
+
+If you want to test ICMP echo requests specifically, disable ARP discovery first.
+
+Use `--disable-arp-ping` with `-PE`.
+
+```bash
+sudo nmap 10.129.2.18 -sn -oA host -PE --packet-trace --disable-arp-ping
+
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 00:12 CEST
+SENT (0.0107s) ICMP [10.10.14.2 > 10.129.2.18 Echo request (type=8/code=0) id=13607 seq=0] IP [ttl=255 id=23541 iplen=28 ]
+RCVD (0.0152s) ICMP [10.129.2.18 > 10.10.14.2 Echo reply (type=0/code=0) id=13607 seq=0] IP [ttl=128 id=40622 iplen=28 ]
+Nmap scan report for 10.129.2.18
+Host is up (0.086s latency).
+MAC Address: DE:AD:00:00:BE:EF
+Nmap done: 1 IP address (1 host up) scanned in 0.11 seconds
+```
+
+This time the trace shows:
+
+* an ICMP echo request
+* an ICMP echo reply
+
+That proves the host responded to ICMP, not just ARP.
+
+### Use TTL as a clue
+
+ICMP replies can also give you a rough TTL value.
+
+TTL can help you estimate the target OS family.
+
+Common starting points include:
+
+* `64` for many Linux and Unix systems
+* `128` for many Windows systems
+* `255` for some network devices
+
+{% hint style="warning" %}
+Treat TTL as a hint, not proof. Routing hops and host configuration can change it.
+{% endhint %}
+
+<figure><img src="../../../.gitbook/assets/image (63).png" alt=""><figcaption></figcaption></figure>
+
+### Further reading
+
+See the official [Nmap host discovery guide](https://nmap.org/book/host-discovery-strategies.html).
+
+
 
