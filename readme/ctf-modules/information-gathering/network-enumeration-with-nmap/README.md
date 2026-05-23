@@ -25,6 +25,21 @@ Use this page to discover live hosts and understand how Nmap performs host disco
 
 <figure><img src="../../../../.gitbook/assets/image (61).png" alt=""><figcaption></figcaption></figure>
 
+```
+[ HIGH LAYER: Human & Application Data ]
+       7. Application  <-- HTTP, SSH, DNS, FTP
+       6. Presentation <-- Encryption (SSL/TLS), Compression
+       5. Session      <-- Sockets, Tunneling (RPC, NetBIOS)
+       
+       [ MIDDLE LAYER: Routing & Transport Rules ]
+       4. Transport    <-- Port Numbers, Handshakes (TCP, UDP)
+       3. Network      <-- IP Addresses, Routing, Errors (IP, ICMP)
+       
+       [ LOW LAYER: Physical Wires & Hardware ]
+       2. Data Link    <-- MAC Addresses, Local Switching (ARP)
+       1. Physical     <-- Cables, RJ45, Bits, Electrical Signals
+```
+
 ## Syntax
 
 Nmap uses this basic format:
