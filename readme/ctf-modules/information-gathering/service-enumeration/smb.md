@@ -3,6 +3,7 @@
 ### Key notes
 
 * **What SMB is:** A file-sharing protocol for shares, printers, and other network resources.
+* OS Target: Primarily Windows, but runs on Linux via Samba.
 * **Key ports:** TCP `139` for NetBIOS SMB and TCP `445` for direct SMB/CIFS.
 * **Enumeration flow:** Start with `smbclient`, pivot to `rpcclient`, then validate findings with `smbmap`, `crackmapexec`, or `enum4linux-ng`.
 * **What each tool gives you:**
@@ -109,6 +110,67 @@ enum4linux-ng -A <TARGET_IP>
 * `read only = no` — write access is allowed.
 * `create mask = 0777` — new files may be too permissive.
 * `directory mask = 0777` — new folders may be too permissive.
+
+Essential Commands(again):
+
+{% code title="Footprint ports and check if Message Signing is required" %}
+```bash
+sudo nmap -p 139,445 -sV -sC <IP>
+```
+{% endcode %}
+
+{% code title="List shares using a Null Session (-N)" %}
+```bash
+smbclient -N -L //<IP>
+```
+{% endcode %}
+
+{% code title="Connect directly to an accessible share" %}
+```bash
+smbclient //<IP>/<share_name>
+
+# Inside smbprompt: use 'ls' to list, 'get <file>' to download, '!' to run local commands
+```
+{% endcode %}
+
+{% code title="Interact with the MS-RPC backend using rpcclient (Null Session)" %}
+```bash
+rpcclient -U "" <IP>
+
+# Inside rpcinfo prompt:
+#   srvinfo         -> Get server OS and banner information
+#   enumdomusers    -> Enumerate all system usernames
+#   netshareenumall -> List all available shares
+#   netsharegetinfo <share_name> -> Find absolute system paths and permissions
+```
+{% endcode %}
+
+{% code title="Bash For-Loop to brute-force User RIDs (useful if enumdomusers is restricted)" %}
+```bash
+for i in $(seq 500 1100); do rpcclient -N -U "" <IP> -c "queryuser 0x$(printf '%x\n' $i)" | grep "User Name\|user_rid" && echo ""; done
+```
+{% endcode %}
+
+Automated Swiss-Army Tools:
+
+{% code title="Check share permissions instantly" %}
+```bash
+smbmap -H <IP>
+crackmapexec smb <IP> --shares -u '' -p ''
+```
+{% endcode %}
+
+{% code title="Dump the entire SAM database / users via Impacket" %}
+```bash
+samrdump.py <IP>
+```
+{% endcode %}
+
+{% code title="Run a complete, automated scan of names, OS info, policies, users, and shares" %}
+```bash
+./enum4linux-ng.py <IP> -A
+```
+{% endcode %}
 
 ### What to do next
 

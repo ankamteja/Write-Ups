@@ -19,36 +19,36 @@
 | `nohide`         | If another file system was mounted below an exported directory, this directory is exported by its own exports entry. |
 | `no_root_squash` | All files created by root are kept with the UID/GID 0.                                                               |
 
-Footprinting the Service
+Footprinting the Service:
 
 {% code title="Footprint the service and check active RPC mappings" %}
-```
+```bash
 sudo nmap 10.129.14.128 -p111,2049 -sV -sC
 sudo nmap --script nfs* -p 111,2049 <IP>
 ```
 {% endcode %}
 
 {% code title="Show available NFS shares" %}
-```
+```bash
 showmount -e 10.129.14.128
 ```
 {% endcode %}
 
 {% code title="Mount the target share to a local folder (-o nolock bypasses file locking)" %}
-```
+```bash
 mkdir target-NFS
 sudo mount -t nfs <IP>:/source/path ./target-NFS/ -o nolock
 ```
 {% endcode %}
 
 {% code title="Inspect raw numeric User IDs inside the mounted share" %}
-```
+```bash
 ls -ln ./target-NFS/
 ```
 {% endcode %}
 
 {% code title="Clean up / Unmount the share" %}
-```
+```bash
 sudo umount ./target-NFS
 ```
 {% endcode %}
