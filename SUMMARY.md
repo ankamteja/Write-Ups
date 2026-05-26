@@ -30,6 +30,7 @@
       * [Service Enumeration](readme/ctf-modules/information-gathering/service-enumeration/README.md)
         * [FTP](readme/ctf-modules/information-gathering/service-enumeration/ftp.md)
         * [SMB](readme/ctf-modules/information-gathering/service-enumeration/smb.md)
+        * [NFS](readme/ctf-modules/information-gathering/service-enumeration/nfs.md)
       * [Web Enumeration](readme/ctf-modules/information-gathering/web-enumeration.md)
       * [Application Enumeration](readme/ctf-modules/information-gathering/application-enumeration.md)
       * [Active Directory Enumeration](readme/ctf-modules/information-gathering/active-directory-enumeration.md)
