@@ -278,7 +278,6 @@ If the FTP server runs with TLS or SSL, use `openssl` to communicate with it.
 This also reveals certificate details.
 
 ```bash
-        shellsession
 impale7@htb[/htb]$ openssl s_client -connect 10.129.14.136:21 -starttls ftp
 
 CONNECTED(00000003)
