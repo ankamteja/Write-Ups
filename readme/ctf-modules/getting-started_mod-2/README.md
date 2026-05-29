@@ -55,7 +55,7 @@ They allow a computer to route different types of traffic simultaneously over a 
 
 {% include "../../../.gitbook/includes/protocol-comparison-tcp-vs....md" %}
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Web server
 
@@ -258,7 +258,7 @@ We can use the `-sC` parameter to specify that `Nmap` scripts should be used to 
 
 <br>
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```bash
 nmap -sV -sC -p- <TARGET_IP>
@@ -356,7 +356,7 @@ Listing available shares:
 smbclient -N -L \\\\<TARGET_IP>
 ```
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 After finding a non-default share like `users`, we attempt to connect to it.
 
@@ -364,7 +364,7 @@ After finding a non-default share like `users`, we attempt to connect to it.
 smbclient \\\\<TARGET_IP>\\<SHARE_NAME>
 ```
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 If this fails, we need to find valid credentials elsewhere and then try again.
 

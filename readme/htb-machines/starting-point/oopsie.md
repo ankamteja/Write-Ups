@@ -8,11 +8,11 @@ hidden: true
 
 `nmap -p- 10.129.95.191 -sC -sV -v --min-rate 5000`
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
 We can see that port 22 and port 80 are open. We'll open the web browser and search for the ip and lets check the website out for any vulnerabilities.
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Initially we see that, it doesnt lead us to anywhere but then when you scroll down...theres a hint
 
