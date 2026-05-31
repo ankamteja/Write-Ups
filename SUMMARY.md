@@ -76,6 +76,7 @@
       * [Fully Interactive TTY](readme/ctf-modules/post-exploitation/fully-interactive-tty.md)
       * [File Transfers](readme/ctf-modules/post-exploitation/file-transfers/README.md)
         * [Windows File Transfer Methods-Download](readme/ctf-modules/post-exploitation/file-transfers/windows-file-transfer-methods-download.md)
+        * [Windows File Transfer Methods-Upload](readme/ctf-modules/post-exploitation/file-transfers/windows-file-transfer-methods-upload.md)
       * [Lateral Movement](readme/ctf-modules/post-exploitation/lateral-movement.md)
       * [PrivEsc](readme/ctf-modules/post-exploitation/privesc/README.md)
         * [Linux PrivEsc](readme/ctf-modules/post-exploitation/privesc/linux-privesc.md)
