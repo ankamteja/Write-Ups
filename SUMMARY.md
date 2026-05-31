@@ -80,6 +80,7 @@
         * [Windows File Transfer Methods-Upload](readme/ctf-modules/post-exploitation/file-transfers/windows-file-transfer-methods-upload.md)
         * [Linux File Transfer Download](readme/ctf-modules/post-exploitation/file-transfers/linux-file-transfer-download.md)
         * [Linux File Transfer Upload](readme/ctf-modules/post-exploitation/file-transfers/linux-file-transfer-upload.md)
+        * [Transferring files with code](readme/ctf-modules/post-exploitation/file-transfers/transferring-files-with-code.md)
       * [Lateral Movement](readme/ctf-modules/post-exploitation/lateral-movement.md)
       * [PrivEsc](readme/ctf-modules/post-exploitation/privesc/README.md)
         * [Linux PrivEsc](readme/ctf-modules/post-exploitation/privesc/linux-privesc.md)
