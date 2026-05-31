@@ -39,6 +39,7 @@
         * [MSSQL (1433)](readme/ctf-modules/information-gathering/service-enumeration/mssql-1433.md)
         * [Oracle TNS (1521)](readme/ctf-modules/information-gathering/service-enumeration/oracle-tns-1521.md)
         * [IPMI (623)](readme/ctf-modules/information-gathering/service-enumeration/ipmi-623.md)
+        * [RDP](readme/ctf-modules/information-gathering/service-enumeration/rdp.md)
         * [Linux Remote Management Protocols](readme/ctf-modules/information-gathering/service-enumeration/linux-remote-management-protocols/README.md)
           * [SSH (22)](readme/ctf-modules/information-gathering/service-enumeration/linux-remote-management-protocols/ssh-22.md)
           * [Rsync (873)](readme/ctf-modules/information-gathering/service-enumeration/linux-remote-management-protocols/rsync-873.md)
