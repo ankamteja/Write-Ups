@@ -5,7 +5,7 @@
     * [Switch](readme/networking/switch.md)
     * [Router](readme/networking/router.md)
     * [TCP/IP and OSI model](readme/networking/tcp-ip-and-osi-model.md)
-    * [How to build a Network](readme/networking/how-to-build-a-network.md)
+    * [How to build a Network(LAN)](readme/networking/how-to-build-a-network-lan.md)
     * [Data Center](readme/networking/data-center.md)
   * [CPTS](readme/ctf-modules/README.md)
     * [Introduction to the penetration tester path](readme/ctf-modules/intro_to_penetration_testing.md)
