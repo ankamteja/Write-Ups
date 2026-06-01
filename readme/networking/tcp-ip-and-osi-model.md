@@ -45,4 +45,26 @@ While the real world primarily utilizes the **TCP/IP model**, the **OSI model** 
 * **De-encapsulation:** When a device receives a frame, it performs the reverse process. It strips away the headers layer by layer to interpret the information contained in the packet, segment, and eventually the application data.
 * **The Physical Path:** Data travels as electrical or optical signals across hardware components (cables, switches, and routers) until it reaches the final destination server, where the process is reversed so the original application request can be read.
 
+\
+&#x20;     The upper layers of the OSI model—Application, Presentation, and Session—and the Transport layer, detailing how they function when a user accesses a website like YouTube.
+
+**The Upper Layers (Application, Presentation, Session)**
+
+* **Application Layer:** Serves as the portal or interface for network-aware programs, such as web browsers or video games. It initiates communication requests.
+* **Presentation Layer:** Prepares data for the application. Key functions include data formatting (e.g., ensuring files like HTML, JPG, or PDF are readable) and encryption (e.g., SSL) to secure data.
+* **Session Layer:** Manages the communication session between the application and a remote server. It handles authentication and keeps the conversation active until the task is complete.
+
+**The Transport Layer** This layer determines how data is transmitted between hosts, choosing between two primary protocols based on the application's needs:
+
+* **TCP (Transmission Control Protocol):** Focuses on reliability. It uses a "three-way handshake" (SYN, SYN-ACK, ACK) to establish a connection and requires verification (acknowledgments) for every piece of data sent. If data is lost, it is retransmitted.
+* **UDP (User Datagram Protocol):** Focuses on speed. It transmits data without checking for receipt or requiring acknowledgments. This is ideal for real-time applications like video streaming or online gaming where retransmitting missed data would be detrimental.
+
+**Ports: Managing Multiple Services** Ports allow a single server to host multiple services simultaneously (e.g., web hosting, FTP, SSH).
+
+* **Well-known Ports:** Reserved ports (0-1023) used for standard services, such as port 443 for HTTPS.
+* **Ephemeral Ports:** Temporary ports chosen by the client machine to receive return data, allowing the user's computer to keep track of multiple active sessions (like multiple browser tabs) at once.
+
+**Summary of the Process** When a user accesses a website, the application layer gathers the request, the presentation layer formats and secures it, and the session layer manages the connection. The transport layer then assigns ports and chooses the appropriate protocol (TCP for the webpage, UDP for video streaming) to ensure the data is delivered to the correct destination and service.
+
 <br>
+
