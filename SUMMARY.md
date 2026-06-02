@@ -72,6 +72,7 @@
           * [Web Reverse Shell](readme/ctf-modules/vulnerability-assessment/shells-and-payloads/reverse-shell/web-reverse-shell.md)
           * [MacOS Reverse Shell](readme/ctf-modules/vulnerability-assessment/shells-and-payloads/reverse-shell/macos-reverse-shell.md)
         * [Web Shells](readme/ctf-modules/vulnerability-assessment/shells-and-payloads/web-shells/README.md)
+          * [Laudanum](readme/ctf-modules/vulnerability-assessment/shells-and-payloads/web-shells/laudanum.md)
           * [PHP Web Shells](readme/ctf-modules/vulnerability-assessment/shells-and-payloads/web-shells/php-web-shells.md)
           * [ASP / .NET Web Shells](readme/ctf-modules/vulnerability-assessment/shells-and-payloads/web-shells/asp-.net-web-shells.md)
         * [Windows Payloads](readme/ctf-modules/vulnerability-assessment/shells-and-payloads/windows-payloads.md)
