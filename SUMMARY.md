@@ -117,6 +117,7 @@
   * [CTF Methodology](readme/ctf-methodology.md)
   * [Cheat Sheets](readme/cheat-sheets/README.md)
     * [HTB VPN](readme/cheat-sheets/htb-vpn.md)
+    * [TTL Values](readme/cheat-sheets/ttl-values.md)
     * [Common ports](readme/cheat-sheets/page-3.md)
     * [TMUX](readme/cheat-sheets/tmux.md)
     * [VIM](readme/cheat-sheets/vim.md)
