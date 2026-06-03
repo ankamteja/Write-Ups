@@ -78,6 +78,7 @@
         * [Windows Payloads](readme/ctf-modules/vulnerability-assessment/shells-and-payloads/windows-payloads.md)
         * [Interactive Shells](readme/ctf-modules/vulnerability-assessment/shells-and-payloads/interactive-shells.md)
         * [Detection and Prevention](readme/ctf-modules/vulnerability-assessment/shells-and-payloads/detection-and-prevention.md)
+        * [Live assessment](readme/ctf-modules/vulnerability-assessment/shells-and-payloads/live-assessment.md)
       * [MSF](readme/ctf-modules/vulnerability-assessment/msf.md)
       * [Web Proxies](readme/ctf-modules/vulnerability-assessment/web-proxies.md)
     * [Exploitation](readme/ctf-modules/exploitation/README.md)
