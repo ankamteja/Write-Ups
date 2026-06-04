@@ -153,4 +153,5 @@
     * [TCP/IP and OSI model](readme/networking/tcp-ip-and-osi-model.md)
     * [How to build a Network(LAN)](readme/networking/how-to-build-a-network-lan.md)
     * [Data Center](readme/networking/data-center.md)
+    * [WAN](readme/networking/wan.md)
   * [News](readme/news.md)
