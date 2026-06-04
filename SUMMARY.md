@@ -88,6 +88,7 @@
         * [Plugins](readme/ctf-modules/vulnerability-assessment/msf/plugins.md)
         * [Sessions](readme/ctf-modules/vulnerability-assessment/msf/sessions.md)
         * [Meterpreter](readme/ctf-modules/vulnerability-assessment/msf/meterpreter.md)
+        * [Writing & Importing Modules](readme/ctf-modules/vulnerability-assessment/msf/writing-and-importing-modules.md)
       * [Web Proxies](readme/ctf-modules/vulnerability-assessment/web-proxies.md)
     * [Exploitation](readme/ctf-modules/exploitation/README.md)
       * [Service Exploitation](readme/ctf-modules/exploitation/service-exploitation.md)
