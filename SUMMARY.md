@@ -84,6 +84,8 @@
         * [Targets](readme/ctf-modules/vulnerability-assessment/msf/targets.md)
         * [Payloads](readme/ctf-modules/vulnerability-assessment/msf/payloads.md)
         * [Encoders](readme/ctf-modules/vulnerability-assessment/msf/encoders.md)
+        * [Databases](readme/ctf-modules/vulnerability-assessment/msf/databases.md)
+        * [Plugins](readme/ctf-modules/vulnerability-assessment/msf/plugins.md)
       * [Web Proxies](readme/ctf-modules/vulnerability-assessment/web-proxies.md)
     * [Exploitation](readme/ctf-modules/exploitation/README.md)
       * [Service Exploitation](readme/ctf-modules/exploitation/service-exploitation.md)
