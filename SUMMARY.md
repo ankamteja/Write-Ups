@@ -90,7 +90,7 @@
         * [Meterpreter](readme/ctf-modules/vulnerability-assessment/msf/meterpreter.md)
         * [Writing & Importing Modules](readme/ctf-modules/vulnerability-assessment/msf/writing-and-importing-modules.md)
         * [MSFVenom](readme/ctf-modules/vulnerability-assessment/msf/msfvenom.md)
-        * [Untitled](readme/ctf-modules/vulnerability-assessment/msf/untitled.md)
+        * [Firewall & IDS/IPS Evasion](readme/ctf-modules/vulnerability-assessment/msf/firewall-and-ids-ips-evasion.md)
       * [Web Proxies](readme/ctf-modules/vulnerability-assessment/web-proxies.md)
     * [Exploitation](readme/ctf-modules/exploitation/README.md)
       * [Service Exploitation](readme/ctf-modules/exploitation/service-exploitation.md)
