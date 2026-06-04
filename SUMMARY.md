@@ -80,7 +80,7 @@
         * [Detection and Prevention](readme/ctf-modules/vulnerability-assessment/shells-and-payloads/detection-and-prevention.md)
         * [Live assessment](readme/ctf-modules/vulnerability-assessment/shells-and-payloads/live-assessment.md)
       * [MSF](readme/ctf-modules/vulnerability-assessment/msf/README.md)
-        * [Architecture](readme/ctf-modules/vulnerability-assessment/msf/architecture.md)
+        * [Modules](readme/ctf-modules/vulnerability-assessment/msf/modules.md)
         * [Targets](readme/ctf-modules/vulnerability-assessment/msf/targets.md)
         * [Payloads](readme/ctf-modules/vulnerability-assessment/msf/payloads.md)
       * [Web Proxies](readme/ctf-modules/vulnerability-assessment/web-proxies.md)
