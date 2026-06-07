@@ -100,6 +100,7 @@
       * [Password Attacks](readme/ctf-modules/exploitation/password-attacks/README.md)
         * [Introduction](readme/ctf-modules/exploitation/password-attacks/introduction.md)
         * [Custom Wordlists and Rules](readme/ctf-modules/exploitation/password-attacks/custom-wordlists-and-rules.md)
+        * [Cracking Protected Files or Archives](readme/ctf-modules/exploitation/password-attacks/cracking-protected-files-or-archives.md)
         * [Tools](readme/ctf-modules/exploitation/password-attacks/tools/README.md)
           * [John The Ripper](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper/README.md)
             * [Questions](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper/questions.md)
