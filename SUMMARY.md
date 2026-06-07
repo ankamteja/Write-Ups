@@ -99,6 +99,7 @@
       * [AD Exploitation](readme/ctf-modules/exploitation/ad-exploitation.md)
       * [Password Attacks](readme/ctf-modules/exploitation/password-attacks/README.md)
         * [Introduction](readme/ctf-modules/exploitation/password-attacks/introduction.md)
+        * [Custom Wordlists and Rules](readme/ctf-modules/exploitation/password-attacks/custom-wordlists-and-rules.md)
         * [Tools](readme/ctf-modules/exploitation/password-attacks/tools/README.md)
           * [John The Ripper](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper/README.md)
             * [Questions](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper/questions.md)
