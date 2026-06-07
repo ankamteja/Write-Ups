@@ -105,6 +105,8 @@
           * [Question](readme/ctf-modules/exploitation/password-attacks/cracking-protected-files/question.md)
         * [Cracking Protected Archives](readme/ctf-modules/exploitation/password-attacks/cracking-protected-archives/README.md)
           * [Questions](readme/ctf-modules/exploitation/password-attacks/cracking-protected-archives/questions.md)
+        * [Network Services](readme/ctf-modules/exploitation/password-attacks/network-services/README.md)
+          * [Untitled](readme/ctf-modules/exploitation/password-attacks/network-services/untitled.md)
         * [Tools](readme/ctf-modules/exploitation/password-attacks/tools/README.md)
           * [John The Ripper](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper/README.md)
             * [Questions](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper/questions.md)
