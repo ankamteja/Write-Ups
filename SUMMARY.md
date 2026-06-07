@@ -108,6 +108,7 @@
         * [Network Services](readme/ctf-modules/exploitation/password-attacks/network-services/README.md)
           * [WinRM](readme/ctf-modules/exploitation/password-attacks/network-services/winrm.md)
           * [SSH](readme/ctf-modules/exploitation/password-attacks/network-services/ssh.md)
+          * [RDP](readme/ctf-modules/exploitation/password-attacks/network-services/rdp.md)
         * [Tools](readme/ctf-modules/exploitation/password-attacks/tools/README.md)
           * [John The Ripper](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper/README.md)
             * [Questions](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper/questions.md)
