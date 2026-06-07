@@ -98,7 +98,7 @@
       * [App Exploitation](readme/ctf-modules/exploitation/app-exploitation.md)
       * [AD Exploitation](readme/ctf-modules/exploitation/ad-exploitation.md)
       * [Password Attacks](readme/ctf-modules/exploitation/password-attacks/README.md)
-        * [Password Attacks](readme/ctf-modules/exploitation/password-attacks/password-attacks.md)
+        * [Introduction](readme/ctf-modules/exploitation/password-attacks/introduction.md)
     * [Post-Exploitation](readme/ctf-modules/post-exploitation/README.md)
       * [Fully Interactive TTY](readme/ctf-modules/post-exploitation/fully-interactive-tty.md)
       * [File Transfers](readme/ctf-modules/post-exploitation/file-transfers/README.md)
