@@ -102,6 +102,7 @@
         * [Tools](readme/ctf-modules/exploitation/password-attacks/tools/README.md)
           * [John The Ripper](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper/README.md)
             * [Questions](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper/questions.md)
+          * [Hashcat](readme/ctf-modules/exploitation/password-attacks/tools/hashcat.md)
     * [Post-Exploitation](readme/ctf-modules/post-exploitation/README.md)
       * [Fully Interactive TTY](readme/ctf-modules/post-exploitation/fully-interactive-tty.md)
       * [File Transfers](readme/ctf-modules/post-exploitation/file-transfers/README.md)
