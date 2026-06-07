@@ -99,6 +99,8 @@
       * [AD Exploitation](readme/ctf-modules/exploitation/ad-exploitation.md)
       * [Password Attacks](readme/ctf-modules/exploitation/password-attacks/README.md)
         * [Introduction](readme/ctf-modules/exploitation/password-attacks/introduction.md)
+        * [Tools](readme/ctf-modules/exploitation/password-attacks/tools/README.md)
+          * [John The Ripper](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper.md)
     * [Post-Exploitation](readme/ctf-modules/post-exploitation/README.md)
       * [Fully Interactive TTY](readme/ctf-modules/post-exploitation/fully-interactive-tty.md)
       * [File Transfers](readme/ctf-modules/post-exploitation/file-transfers/README.md)
