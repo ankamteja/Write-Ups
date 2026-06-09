@@ -113,6 +113,7 @@
           * [Questions](readme/ctf-modules/exploitation/password-attacks/network-services/questions.md)
         * [Password Spraying, Credential Stuffing & Default Credentials](readme/ctf-modules/exploitation/password-attacks/password-spraying-credential-stuffing-and-default-credentials/README.md)
           * [Question](readme/ctf-modules/exploitation/password-attacks/password-spraying-credential-stuffing-and-default-credentials/question.md)
+        * [Windows Authentication Process](readme/ctf-modules/exploitation/password-attacks/windows-authentication-process.md)
         * [Tools](readme/ctf-modules/exploitation/password-attacks/tools/README.md)
           * [John The Ripper](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper/README.md)
             * [Questions](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper/questions.md)
