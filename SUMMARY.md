@@ -116,6 +116,7 @@
         * [Windows Authentication Process](readme/ctf-modules/exploitation/password-attacks/windows-authentication-process/README.md)
           * [Attacking SAM, SYSTEM, and SECURITY](readme/ctf-modules/exploitation/password-attacks/windows-authentication-process/attacking-sam-system-and-security.md)
           * [Attacking LSASS](readme/ctf-modules/exploitation/password-attacks/windows-authentication-process/attacking-lsass.md)
+          * [Attacking Windows Credential Manager](readme/ctf-modules/exploitation/password-attacks/windows-authentication-process/attacking-windows-credential-manager.md)
         * [Tools](readme/ctf-modules/exploitation/password-attacks/tools/README.md)
           * [John The Ripper](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper/README.md)
             * [Questions](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper/questions.md)
