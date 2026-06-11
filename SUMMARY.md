@@ -128,7 +128,6 @@
             * [Questions](readme/ctf-modules/exploitation/password-attacks/tools/hashcat/questions.md)
           * [NetExec](readme/ctf-modules/exploitation/password-attacks/tools/netexec.md)
           * [Hydra](readme/ctf-modules/exploitation/password-attacks/tools/hydra.md)
-          * [Untitled](readme/ctf-modules/exploitation/password-attacks/tools/untitled.md)
     * [Post-Exploitation](readme/ctf-modules/post-exploitation/README.md)
       * [Fully Interactive TTY](readme/ctf-modules/post-exploitation/fully-interactive-tty.md)
       * [File Transfers](readme/ctf-modules/post-exploitation/file-transfers/README.md)
