@@ -120,6 +120,7 @@
           * [Attacking Active Directory & NTDS.dit](readme/ctf-modules/exploitation/password-attacks/windows-authentication-process/attacking-active-directory-and-ntds.dit.md)
           * [Credential Hunting in Windows](readme/ctf-modules/exploitation/password-attacks/windows-authentication-process/credential-hunting-in-windows.md)
           * [Questions](readme/ctf-modules/exploitation/password-attacks/windows-authentication-process/questions.md)
+        * [Linux Credential Storage](readme/ctf-modules/exploitation/password-attacks/linux-credential-storage.md)
         * [Tools](readme/ctf-modules/exploitation/password-attacks/tools/README.md)
           * [John The Ripper](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper/README.md)
             * [Questions](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper/questions.md)
