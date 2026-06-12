@@ -122,6 +122,7 @@
           * [Questions](readme/ctf-modules/exploitation/password-attacks/windows-authentication-process/questions.md)
         * [Linux Credential Storage](readme/ctf-modules/exploitation/password-attacks/linux-credential-storage.md)
         * [Linux Credential Hunting](readme/ctf-modules/exploitation/password-attacks/linux-credential-hunting.md)
+        * [Linux Auth & Credential Hunting — Lab Walkthrough](readme/ctf-modules/exploitation/password-attacks/linux-auth-and-credential-hunting-lab-walkthrough.md)
         * [Credential Hunting in Network Traffic](readme/ctf-modules/exploitation/password-attacks/credential-hunting-in-network-traffic.md)
         * [Credential Hunting in Network Shares](readme/ctf-modules/exploitation/password-attacks/credential-hunting-in-network-shares.md)
         * [Tools](readme/ctf-modules/exploitation/password-attacks/tools/README.md)
