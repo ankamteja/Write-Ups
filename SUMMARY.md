@@ -122,6 +122,7 @@
           * [Questions](readme/ctf-modules/exploitation/password-attacks/windows-authentication-process/questions.md)
         * [Linux Credential Storage](readme/ctf-modules/exploitation/password-attacks/linux-credential-storage.md)
         * [Linux Credential Hunting](readme/ctf-modules/exploitation/password-attacks/linux-credential-hunting.md)
+        * [Credential Hunting in Network Traffic](readme/ctf-modules/exploitation/password-attacks/credential-hunting-in-network-traffic.md)
         * [Tools](readme/ctf-modules/exploitation/password-attacks/tools/README.md)
           * [John The Ripper](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper/README.md)
             * [Questions](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper/questions.md)
