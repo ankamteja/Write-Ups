@@ -128,6 +128,8 @@
           * [Credential Hunting in Network Traffic](readme/ctf-modules/exploitation/password-attacks/credential-hunting-in-network/credential-hunting-in-network-traffic.md)
           * [Credential Hunting in Network Shares](readme/ctf-modules/exploitation/password-attacks/credential-hunting-in-network/credential-hunting-in-network-shares.md)
           * [Questions](readme/ctf-modules/exploitation/password-attacks/credential-hunting-in-network/questions.md)
+        * [Windows Lateral Movement](readme/ctf-modules/exploitation/password-attacks/windows-lateral-movement/README.md)
+          * [Pass the Hash(PtH)](readme/ctf-modules/exploitation/password-attacks/windows-lateral-movement/pass-the-hash-pth.md)
         * [Tools](readme/ctf-modules/exploitation/password-attacks/tools/README.md)
           * [John The Ripper](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper/README.md)
             * [Questions](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper/questions.md)
