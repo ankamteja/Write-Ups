@@ -135,6 +135,7 @@
             * [Questions](readme/ctf-modules/exploitation/password-attacks/windows-lateral-movement/pass-the-ticket-from-windows-ptt/questions.md)
           * [Pass the Ticket from Linux(PtT)](readme/ctf-modules/exploitation/password-attacks/windows-lateral-movement/pass-the-ticket-from-linux-ptt/README.md)
             * [Questions](readme/ctf-modules/exploitation/password-attacks/windows-lateral-movement/pass-the-ticket-from-linux-ptt/questions.md)
+          * [Pass the Certificate](readme/ctf-modules/exploitation/password-attacks/windows-lateral-movement/pass-the-certificate.md)
         * [Tools](readme/ctf-modules/exploitation/password-attacks/tools/README.md)
           * [John The Ripper](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper/README.md)
             * [Questions](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper/questions.md)
