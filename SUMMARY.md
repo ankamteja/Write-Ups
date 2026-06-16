@@ -139,6 +139,7 @@
             * [Questions](readme/ctf-modules/exploitation/password-attacks/windows-lateral-movement/pass-the-certificate/questions.md)
         * [Password Policies](readme/ctf-modules/exploitation/password-attacks/password-policies.md)
         * [Password Managers](readme/ctf-modules/exploitation/password-attacks/password-managers.md)
+        * [Skill Assessment](readme/ctf-modules/exploitation/password-attacks/skill-assessment.md)
         * [Tools](readme/ctf-modules/exploitation/password-attacks/tools/README.md)
           * [John The Ripper](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper/README.md)
             * [Questions](readme/ctf-modules/exploitation/password-attacks/tools/john-the-ripper/questions.md)
