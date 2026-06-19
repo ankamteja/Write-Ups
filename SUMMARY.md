@@ -94,6 +94,8 @@
       * [Web Proxies](readme/ctf-modules/vulnerability-assessment/web-proxies.md)
     * [Exploitation](readme/ctf-modules/exploitation/README.md)
       * [Service Exploitation](readme/ctf-modules/exploitation/service-exploitation/README.md)
+        * [Interacting with common services](readme/ctf-modules/exploitation/service-exploitation/interacting-with-common-services.md)
+        * [Approach](readme/ctf-modules/exploitation/service-exploitation/approach.md)
         * [FTP(21)](readme/ctf-modules/exploitation/service-exploitation/ftp-21.md)
       * [Web Exploitation](readme/ctf-modules/exploitation/web-exploitation.md)
       * [App Exploitation](readme/ctf-modules/exploitation/app-exploitation.md)
