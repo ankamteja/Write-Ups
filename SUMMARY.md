@@ -1,8 +1,6 @@
 # Table of contents
 
 * [Cyber Security Writeups](README.md)
-  * [eJPT](readme/ejpt/README.md)
-    * [Page 2](readme/ejpt/page-2.md)
   * [CPTS](readme/ctf-modules/README.md)
     * [Introduction to the penetration tester path](readme/ctf-modules/intro_to_penetration_testing.md)
     * [Getting started](readme/ctf-modules/getting-started_mod-2/README.md)
