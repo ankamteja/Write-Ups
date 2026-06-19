@@ -179,7 +179,7 @@
       * [Cap](readme/htb-machines/easy/cap.md)
   * [CTF writeups](readme/ctf-write-ups/README.md)
     * [Challenge writeup template](readme/ctf-write-ups/page-2.md)
-  * [CTF Methodology](readme/ctf-methodology.md)
+  * [Methodology](readme/methodology.md)
   * [Cheat Sheets](readme/cheat-sheets/README.md)
     * [Reference](readme/cheat-sheets/reference.md)
     * [HTB VPN](readme/cheat-sheets/htb-vpn.md)
