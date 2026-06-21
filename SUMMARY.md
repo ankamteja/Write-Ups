@@ -97,6 +97,7 @@
         * [Interacting with common services](readme/ctf-modules/exploitation/service-exploitation/interacting-with-common-services.md)
         * [Approach](readme/ctf-modules/exploitation/service-exploitation/approach.md)
         * [FTP(21)](readme/ctf-modules/exploitation/service-exploitation/ftp-21.md)
+        * [SMB(139, 445)](readme/ctf-modules/exploitation/service-exploitation/smb-139-445.md)
       * [Web Exploitation](readme/ctf-modules/exploitation/web-exploitation.md)
       * [App Exploitation](readme/ctf-modules/exploitation/app-exploitation.md)
       * [AD Exploitation](readme/ctf-modules/exploitation/ad-exploitation.md)
