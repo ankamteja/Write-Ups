@@ -99,6 +99,7 @@
         * [FTP(21)](readme/ctf-modules/exploitation/service-exploitation/ftp-21.md)
         * [SMB (139, 445)](readme/ctf-modules/exploitation/service-exploitation/smb-139-445/README.md)
           * [Latest SMB Vulnerabilities](readme/ctf-modules/exploitation/service-exploitation/smb-139-445/latest-smb-vulnerabilities.md)
+        * [SQL](readme/ctf-modules/exploitation/service-exploitation/sql.md)
       * [Web Exploitation](readme/ctf-modules/exploitation/web-exploitation.md)
       * [App Exploitation](readme/ctf-modules/exploitation/app-exploitation.md)
       * [AD Exploitation](readme/ctf-modules/exploitation/ad-exploitation.md)
