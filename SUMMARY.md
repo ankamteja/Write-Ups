@@ -103,6 +103,8 @@
           * [Latest SQL Vulnerabilities](readme/ctf-modules/exploitation/service-exploitation/sql/latest-sql-vulnerabilities.md)
         * [RDP](readme/ctf-modules/exploitation/service-exploitation/rdp/README.md)
           * [Latest RDP Vulnerabilities](readme/ctf-modules/exploitation/service-exploitation/rdp/latest-rdp-vulnerabilities.md)
+        * [DNS](readme/ctf-modules/exploitation/service-exploitation/dns/README.md)
+          * [Latest DNS Vulnerabilities](readme/ctf-modules/exploitation/service-exploitation/dns/latest-dns-vulnerabilities.md)
       * [Web Exploitation](readme/ctf-modules/exploitation/web-exploitation.md)
       * [App Exploitation](readme/ctf-modules/exploitation/app-exploitation.md)
       * [AD Exploitation](readme/ctf-modules/exploitation/ad-exploitation.md)
