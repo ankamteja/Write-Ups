@@ -1,4 +1,4 @@
-# CTF & Security Writeups
+# Cyber Security Writeups
 
 ***
 
@@ -6,11 +6,10 @@ Notes, walkthroughs, and writeups.
 
 ### Contents
 
-* [CPTS module notes](readme/ctf-modules/)
-* [Cheat Sheets](readme/cheat-sheets/)
-* [HTB machine writeups](readme/htb-machines/)
-* [CTF challenge writeups](readme/ctf-write-ups/)
-
+* [CPTS module notes](capcap/cpts-modules/)
+* [Cheat Sheets](capcap/cheat-sheets/)
+* [HTB machine writeups](capcap/htb-machines/)
+* [CTF challenge writeups](capcap/ctf-write-ups/)
 
 ### Profiles
 

@@ -1253,4 +1253,4 @@ Ncat: Connected to 10.129.2.28:50000.
 * [NSE script reference](https://nmap.org/nsedoc/index.html)
 * [Nmap performance guide](https://nmap.org/book/man-performance.html)
 * [Nmap timing template reference](https://nmap.org/book/performance-timing-templates.html)
-* [Service Enumeration](../ctf-modules/information-gathering/network-enumeration-with-nmap/service-enumeration-using-nmap.md)
+* [Service Enumeration](../cpts-modules/information-gathering/network-enumeration-with-nmap/service-enumeration-using-nmap.md)
