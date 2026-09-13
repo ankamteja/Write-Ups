@@ -107,6 +107,7 @@
           * [Latest DNS Vulnerabilities](capcap/cpts-modules/exploitation/service-exploitation/dns/latest-dns-vulnerabilities.md)
         * [SMTP](capcap/cpts-modules/exploitation/service-exploitation/smtp/README.md)
           * [Latest SMTP Vulnerabilities](capcap/cpts-modules/exploitation/service-exploitation/smtp/latest-smtp-vulnerabilities.md)
+        * [Skill Assessment](capcap/cpts-modules/exploitation/service-exploitation/skill-assessment.md)
       * [Web Exploitation](capcap/cpts-modules/exploitation/web-exploitation.md)
       * [App Exploitation](capcap/cpts-modules/exploitation/app-exploitation.md)
       * [AD Exploitation](capcap/cpts-modules/exploitation/ad-exploitation.md)
