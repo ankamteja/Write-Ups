@@ -180,6 +180,7 @@
         * [Detect or be Detected](capcap/cpts-modules/post-exploitation/file-transfers/detect-or-be-detected.md)
       * [Lateral Movement](capcap/cpts-modules/post-exploitation/lateral-movement/README.md)
         * [Pivoting](capcap/cpts-modules/post-exploitation/lateral-movement/pivoting.md)
+        * [Dynamic Port Forwarding with SSH & SOCKS Tunneling](capcap/cpts-modules/post-exploitation/lateral-movement/dynamic-port-forwarding-with-ssh-and-socks-tunneling.md)
       * [PrivEsc](capcap/cpts-modules/post-exploitation/privesc/README.md)
         * [Linux PrivEsc](capcap/cpts-modules/post-exploitation/privesc/linux-privesc.md)
         * [Windows PrivEsc](capcap/cpts-modules/post-exploitation/privesc/windows-privesc.md)
