@@ -183,6 +183,7 @@
         * [Dynamic Port Forwarding with SSH & SOCKS Tunneling](capcap/cpts-modules/post-exploitation/lateral-movement/dynamic-port-forwarding-with-ssh-and-socks-tunneling.md)
         * [Remote / Reverse Port Forwarding with SSH (-R)](capcap/cpts-modules/post-exploitation/lateral-movement/remote-reverse-port-forwarding-with-ssh-r.md)
         * [Meterpreter Tunneling & Port Forwarding](capcap/cpts-modules/post-exploitation/lateral-movement/meterpreter-tunneling-and-port-forwarding.md)
+        * [Socat Redirection with a Reverse Shell](capcap/cpts-modules/post-exploitation/lateral-movement/socat-redirection-with-a-reverse-shell.md)
       * [PrivEsc](capcap/cpts-modules/post-exploitation/privesc/README.md)
         * [Linux PrivEsc](capcap/cpts-modules/post-exploitation/privesc/linux-privesc.md)
         * [Windows PrivEsc](capcap/cpts-modules/post-exploitation/privesc/windows-privesc.md)
