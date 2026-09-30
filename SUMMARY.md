@@ -188,6 +188,7 @@
         * [SSH for Windows: plink.exe](capcap/cpts-modules/post-exploitation/lateral-movement/ssh-for-windows-plink.exe.md)
         * [SSH Pivoting with Sshuttle](capcap/cpts-modules/post-exploitation/lateral-movement/ssh-pivoting-with-sshuttle.md)
         * [Web Server Pivoting with Rpivot](capcap/cpts-modules/post-exploitation/lateral-movement/web-server-pivoting-with-rpivot.md)
+        * [Port Forwarding with Windows Netsh](capcap/cpts-modules/post-exploitation/lateral-movement/port-forwarding-with-windows-netsh.md)
         * [DNS Tunneling with Dnscat2](capcap/cpts-modules/post-exploitation/lateral-movement/dns-tunneling-with-dnscat2.md)
       * [PrivEsc](capcap/cpts-modules/post-exploitation/privesc/README.md)
         * [Linux PrivEsc](capcap/cpts-modules/post-exploitation/privesc/linux-privesc.md)
