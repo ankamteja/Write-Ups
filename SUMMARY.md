@@ -186,6 +186,7 @@
         * [Socat Redirection with a Reverse Shell](capcap/cpts-modules/post-exploitation/lateral-movement/socat-redirection-with-a-reverse-shell.md)
         * [Socat Redirection with a Bind Shell](capcap/cpts-modules/post-exploitation/lateral-movement/socat-redirection-with-a-bind-shell.md)
         * [SSH for Windows: plink.exe](capcap/cpts-modules/post-exploitation/lateral-movement/ssh-for-windows-plink.exe.md)
+        * [SSH Pivoting with Sshuttle](capcap/cpts-modules/post-exploitation/lateral-movement/ssh-pivoting-with-sshuttle.md)
       * [PrivEsc](capcap/cpts-modules/post-exploitation/privesc/README.md)
         * [Linux PrivEsc](capcap/cpts-modules/post-exploitation/privesc/linux-privesc.md)
         * [Windows PrivEsc](capcap/cpts-modules/post-exploitation/privesc/windows-privesc.md)
