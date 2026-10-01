@@ -191,6 +191,7 @@
         * [Port Forwarding with Windows Netsh](capcap/cpts-modules/post-exploitation/lateral-movement/port-forwarding-with-windows-netsh.md)
         * [DNS Tunneling with Dnscat2](capcap/cpts-modules/post-exploitation/lateral-movement/dns-tunneling-with-dnscat2.md)
         * [SOCKS5 Tunneling with Chisel](capcap/cpts-modules/post-exploitation/lateral-movement/socks5-tunneling-with-chisel.md)
+        * [ICMP Tunneling with SOCKS (ptunnel-ng)](capcap/cpts-modules/post-exploitation/lateral-movement/icmp-tunneling-with-socks-ptunnel-ng.md)
       * [PrivEsc](capcap/cpts-modules/post-exploitation/privesc/README.md)
         * [Linux PrivEsc](capcap/cpts-modules/post-exploitation/privesc/linux-privesc.md)
         * [Windows PrivEsc](capcap/cpts-modules/post-exploitation/privesc/windows-privesc.md)
