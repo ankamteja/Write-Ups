@@ -1,7 +1,3 @@
----
-hidden: true
----
-
 # Oopsie
 
 ## Enumeration
@@ -31,7 +27,7 @@ we can visit this on out browser...lets go ahead
 
 <figure><img src="../../../.gitbook/assets/image (86).png" alt=""><figcaption></figcaption></figure>
 
-i tried brute forcing manually but sadly no results but theres also an option to login as guest...lets go ahead and try that&#x20;
+i tried brute forcing manually but sadly no results but theres also an option to login as guest...lets go ahead and try that
 
 <figure><img src="../../../.gitbook/assets/image (87).png" alt=""><figcaption></figcaption></figure>
 
@@ -45,8 +41,6 @@ i went to inspect the page and i see that we are logged in as guest and out user
 
 <figure><img src="../../../.gitbook/assets/image (89).png" alt=""><figcaption></figcaption></figure>
 
-
-
 I checked the browser for url where there's id in the url...we can try changing the value of id to enumerate
 
 <figure><img src="../../../.gitbook/assets/image (90).png" alt=""><figcaption></figcaption></figure>
@@ -59,8 +53,6 @@ and yee we found it and the id is 1...this info disclosure vuln...lets see if we
 <figure><img src="../../../.gitbook/assets/image (92).png" alt=""><figcaption></figcaption></figure>
 
 i changed the values and now we can upload the file...
-
-
 
 ## Foothold
 

@@ -204,6 +204,7 @@
       * [Nibbles](capcap/htb-machines/easy/page-1.md)
       * [GettingStarted](capcap/htb-machines/easy/gettingstarted.md)
       * [Cap](capcap/htb-machines/easy/cap.md)
+      * [Orion](capcap/htb-machines/easy/orion.md)
   * [CTF writeups](capcap/ctf-write-ups/README.md)
     * [Challenge writeup template](capcap/ctf-write-ups/page-2.md)
   * [Methodology](capcap/methodology/README.md)
