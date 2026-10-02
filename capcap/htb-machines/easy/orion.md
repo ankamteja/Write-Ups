@@ -1,8 +1,7 @@
 ---
 description: >-
-  Difficulty: Very Easy OS: Linux Chain: CraftCMS pre-auth RCE (CVE-2025-32432)
-  → cleartext DB creds → bcrypt crack → SSH → telnetd auth bypass
-  (CVE-2026-24061)
+  Difficulty: Easy OS: Linux Chain: CraftCMS pre-auth RCE (CVE-2025-32432) →
+  cleartext DB creds → bcrypt crack → SSH → telnetd auth bypass (CVE-2026-24061)
 ---
 
 # Orion
