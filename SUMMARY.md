@@ -205,6 +205,7 @@
       * [GettingStarted](capcap/htb-machines/easy/gettingstarted.md)
       * [Cap](capcap/htb-machines/easy/cap.md)
       * [Orion](capcap/htb-machines/easy/orion.md)
+      * [Nexus](capcap/htb-machines/easy/nexus.md)
   * [CTF writeups](capcap/ctf-write-ups/README.md)
     * [Challenge writeup template](capcap/ctf-write-ups/page-2.md)
   * [Methodology](capcap/methodology/README.md)
