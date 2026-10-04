@@ -180,6 +180,7 @@
         * [Detect or be Detected](capcap/cpts-modules/post-exploitation/file-transfers/detect-or-be-detected.md)
       * [Lateral Movement](capcap/cpts-modules/post-exploitation/lateral-movement/README.md)
         * [Pivoting](capcap/cpts-modules/post-exploitation/lateral-movement/pivoting/README.md)
+          * [Pivoting - Master Tool Selection Guide](capcap/cpts-modules/post-exploitation/lateral-movement/pivoting/pivoting-master-tool-selection-guide.md)
           * [Dynamic Port Forwarding with SSH & SOCKS Tunneling](capcap/cpts-modules/post-exploitation/lateral-movement/pivoting/dynamic-port-forwarding-with-ssh-and-socks-tunneling.md)
           * [Remote / Reverse Port Forwarding with SSH (-R)](capcap/cpts-modules/post-exploitation/lateral-movement/pivoting/remote-reverse-port-forwarding-with-ssh-r.md)
           * [Meterpreter Tunneling & Port Forwarding](capcap/cpts-modules/post-exploitation/lateral-movement/pivoting/meterpreter-tunneling-and-port-forwarding.md)
