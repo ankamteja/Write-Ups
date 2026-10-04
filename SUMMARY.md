@@ -207,6 +207,7 @@
       * [Orion](capcap/htb-machines/easy/orion.md)
       * [Nexus](capcap/htb-machines/easy/nexus.md)
       * [Silentium](capcap/htb-machines/easy/silentium.md)
+      * [Reactor](capcap/htb-machines/easy/reactor.md)
     * [Medium](capcap/htb-machines/medium/README.md)
       * [Principal](capcap/htb-machines/medium/principal.md)
   * [CTF writeups](capcap/ctf-write-ups/README.md)
