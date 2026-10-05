@@ -1,3 +1,7 @@
+---
+hidden: true
+---
+
 # Touch
 
 ## HTB Touch — Complete Writeup
