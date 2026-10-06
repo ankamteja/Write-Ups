@@ -211,6 +211,7 @@
       * [Silentium](capcap/htb-machines/easy/silentium.md)
       * [Reactor](capcap/htb-machines/easy/reactor.md)
       * [Touch](capcap/htb-machines/easy/touch.md)
+      * [Cohort](capcap/htb-machines/easy/cohort.md)
     * [Medium](capcap/htb-machines/medium/README.md)
       * [Principal](capcap/htb-machines/medium/principal.md)
   * [CTF writeups](capcap/ctf-write-ups/README.md)
