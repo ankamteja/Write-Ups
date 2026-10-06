@@ -214,6 +214,7 @@
       * [Cohort](capcap/htb-machines/easy/cohort.md)
     * [Medium](capcap/htb-machines/medium/README.md)
       * [Principal](capcap/htb-machines/medium/principal.md)
+      * [SmartHire](capcap/htb-machines/medium/smarthire.md)
   * [CTF writeups](capcap/ctf-write-ups/README.md)
     * [Challenge writeup template](capcap/ctf-write-ups/page-2.md)
   * [Methodology](capcap/methodology/README.md)
