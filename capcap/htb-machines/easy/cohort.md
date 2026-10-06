@@ -67,17 +67,15 @@ http://2130706433/status      → 200 OK
 echo '10.129.244.174 nb-1be3782a8afd3ad5.cohort.htb' | sudo tee -a /etc/hosts
 ```
 
-Login page title → **marimo** (reactive Python notebook), not Jupyter. Single password field; version string `0.20.4`.
+Login page title → **marimo** (reactive Python notebook). Single password field; version string `0.20.4`.
 
-marimo ≤ 0.20.4: **unauthenticated WebSocket RCE**. `/terminal/ws` skips the `validate_auth()` check every other WS endpoint enforces, so an unauthenticated connection yields a PTY shell. The password never matters — walk around it.
+marimo ≤ 0.20.4: **unauthenticated WebSocket RCE**. `/terminal/ws` skips the `validate_auth()` check every other WS endpoint enforces, so an unauthenticated connection yields a PTY shell. The password never matters .
 
 * Endpoint: `wss://nb-1be3782a8afd3ad5.cohort.htb/terminal/ws`
 * Frames: raw xterm PTY bytes (not JSON)
 * Small `websockets` Python client → shell as `uid=1000(marimo)`
 
 Grabbed `user.txt`. Planted an SSH key in `~marimo/.ssh/authorized_keys` for a stable session.
-
-> Lesson: the `echo >> authorized_keys` runs **on the target** (`marimo@cohort`), not on Kali. Watch the prompt. WebSocket PTY is fragile — move to SSH early.
 
 ### 5. Privilege escalation - identified & confirmed, exploit pending
 
