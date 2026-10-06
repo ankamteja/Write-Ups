@@ -212,6 +212,7 @@
       * [Reactor](capcap/htb-machines/easy/reactor.md)
       * [Touch](capcap/htb-machines/easy/touch.md)
       * [Cohort](capcap/htb-machines/easy/cohort.md)
+      * [Connected](capcap/htb-machines/easy/connected.md)
     * [Medium](capcap/htb-machines/medium/README.md)
       * [Principal](capcap/htb-machines/medium/principal.md)
       * [SmartHire](capcap/htb-machines/medium/smarthire.md)
