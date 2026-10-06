@@ -1,8 +1,10 @@
+---
+hidden: true
+---
+
 # Cohort
 
-**Platform:** Hack The Box · **Difficulty:** Easy · **OS:** Linux **Status:** user ✓ · root pending (privesc identified and confirmed, not yet executed)
-
-> Box is **ACTIVE** — keep this private until Cohort retires (HTB ToS). The root exploit step is deliberately left as a checklist, not written out, for the same reason.
+**Platform:** Hack The Box · **Difficulty:** Easy · **OS:** Linux&#x20;
 
 ***
 
