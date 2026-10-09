@@ -216,6 +216,7 @@
     * [Medium](capcap/htb-machines/medium/README.md)
       * [Principal](capcap/htb-machines/medium/principal.md)
       * [SmartHire](capcap/htb-machines/medium/smarthire.md)
+      * [DevHub](capcap/htb-machines/medium/devhub.md)
   * [CTF writeups](capcap/ctf-write-ups/README.md)
     * [Challenge writeup template](capcap/ctf-write-ups/page-2.md)
   * [Methodology](capcap/methodology/README.md)
